@@ -59,4 +59,8 @@ CONSTRAINT fk_contrata_inquilino FOREIGN KEY(id_inquilino) REFERENCES inquilino(
 );
 
 
+-- Creacion del usuario 
+CREATE USER mantenimiento@'%' IDENTIFIED BY 'mantenimiento1234';
+GRANT INSERT, SELECT, DELETE, UPDATE ON alquilaria_bd.* TO mantenimiento@'%';
+
 
