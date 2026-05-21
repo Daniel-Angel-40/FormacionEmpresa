@@ -1,0 +1,57 @@
+# ------------------------------------
+# IntelliJ IDEA
+# ------------------------------------
+# Directorio de metadatos del proyecto de IntelliJ
+.idea/
+# Archivos de la interfaz de usuario de IntelliJ
+*.iws
+# Archivos de módulos (si usas estructura de proyecto de IntelliJ)
+*.iml
+*.ipr
+# Historial local de IntelliJ
+.history/
+
+# ------------------------------------
+# Compilación y Salida de Java
+# ------------------------------------
+# Archivos compilados (clases)
+*.class
+
+# Directorios de salida de compilación
+# El más común en Maven/Gradle/IntelliJ
+/out/
+/target/
+/build/
+/bin/
+
+# Empaquetado
+*.jar
+*.war
+*.ear
+
+# ------------------------------------
+# Archivos de logs y dependencias
+# ------------------------------------
+/logs/
+*.log
+/repo/  # Directorio para dependencias locales
+
+# ------------------------------------
+# Sistemas Operativos (Windows/Linux/Mac)
+# ------------------------------------
+# Archivos temporales comunes
+*~
+.#*
+*.swp
+# Archivos específicos de Windows
+Thumbs.db
+# Archivos específicos de Mac (aunque no lo pediste, es bueno incluirlo por si acaso)
+.DS_Store
+
+# ------------------------------------
+# Archivos o Carpetas Personales (EJEMPLO)
+# ------------------------------------
+# Agrega aquí cualquier archivo o carpeta que contenga datos sensibles o personales.
+# Por ejemplo, una carpeta de notas, o un archivo de configuración local:
+/Notas-del-desarrollador/
+local.properties
