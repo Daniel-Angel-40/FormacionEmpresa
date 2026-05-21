@@ -34,7 +34,7 @@ CONSTRAINT ck_vivienda_superficie CHECK(alquiler_mensual > 0)
 -- Creacion de la tabla Inquilino
 CREATE TABLE inquilino (
 id INT AUTO_INCREMENT PRIMARY KEY,
-DNI VARCHAR(11) UNIQUE KEY,
+DNI VARCHAR(11) NOT NULL,
 nombre VARCHAR(150) NOT NULL,
 correo_electronico VARCHAR(200),
 telefono VARCHAR(11),
