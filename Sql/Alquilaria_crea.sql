@@ -7,7 +7,7 @@ USE alquilaria_bd;
 -- Creacion de la tabla Propietario
 CREATE TABLE propietario (
 id INT AUTO_INCREMENT PRIMARY KEY,
-DNI VARCHAR(11) UNIQUE KEY,
+DNI VARCHAR(11) NOT NULL UNIQUE,
 nombre VARCHAR(150) NOT NULL,
 correo_electronico VARCHAR(200),
 telefono VARCHAR(11)
@@ -60,6 +60,7 @@ CONSTRAINT fk_contrata_inquilino FOREIGN KEY(id_inquilino) REFERENCES inquilino(
 
 
 -- Creacion del usuario 
+DROP USER IF EXISTS mantenimiento@'%'; 
 CREATE USER mantenimiento@'%' IDENTIFIED BY 'mantenimiento1234';
 GRANT INSERT, SELECT, DELETE, UPDATE ON alquilaria_bd.* TO mantenimiento@'%';
 
