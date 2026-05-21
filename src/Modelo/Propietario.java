@@ -68,14 +68,16 @@ public class Propietario {
         this.id = id;
         this.DNI = DNI;
         this.nombre = nombre;
-        if (correo.isBlank()){
+        if (correo.isBlank()) {
             this.correo = null;
+        } else {
+            this.correo = correo;
         }
-        this.correo = correo;
-        if (telefono.isBlank()){
+        if (telefono.isBlank()) {
             this.telefono = null;
+        } else {
+            this.telefono = telefono;
         }
-        this.telefono = telefono;
     }
 
     // METODOS
@@ -84,10 +86,10 @@ public class Propietario {
     @Override
     public String toString() {
         return """
-            ╔══════════════════════════════════╗
-            ║         DATOS DEL CLIENTE        ║
-            ╠══════════════════════════════════╣
-            ║ ID      : """ + id + "\n" +
+                ╔══════════════════════════════════╗
+                ║         DATOS DEL CLIENTE        ║
+                ╠══════════════════════════════════╣
+                ║ ID      : """ + id + "\n" +
                 "║ DNI     : " + DNI + "\n" +
                 "║ Nombre  : " + nombre + "\n" +
                 "║ Correo  : " + correo + "\n" +
