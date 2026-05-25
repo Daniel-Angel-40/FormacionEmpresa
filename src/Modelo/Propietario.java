@@ -64,8 +64,25 @@ public class Propietario {
     }
 
 
+    // Constructor para cuando se haga una consulta
     public Propietario(int id, String DNI, String nombre, String correo, String telefono) {
         this.id = id;
+        this.DNI = DNI;
+        this.nombre = nombre;
+        if (correo.isBlank()) {
+            this.correo = null;
+        } else {
+            this.correo = correo;
+        }
+        if (telefono.isBlank()) {
+            this.telefono = null;
+        } else {
+            this.telefono = telefono;
+        }
+    }
+
+    // Constructor para cuando se inserte en la base de datos
+    public Propietario(String DNI, String nombre, String correo, String telefono) {
         this.DNI = DNI;
         this.nombre = nombre;
         if (correo.isBlank()) {
