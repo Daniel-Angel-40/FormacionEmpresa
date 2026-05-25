@@ -74,4 +74,35 @@ public class PropietarioDAO {
             System.err.println("Error SQL: " + e.getMessage());
         }
     }
+
+    public static void eliminarPropietario(int id) {
+
+        try (Connection con = ConexionBD.getConnection()) {
+
+            String sql = "{CALL sp_del_propietario(?,?,?)}";
+
+            CallableStatement cs = con.prepareCall(sql);
+
+            cs.setInt(1, id);
+            cs.registerOutParameter(2, Types.INTEGER);
+            cs.registerOutParameter(3, Types.INTEGER);
+
+            cs.execute();
+
+            int error = cs.getInt(2);
+            int filas = cs.getInt(3);
+
+            cs.close();
+
+            if (error == 0) {
+                System.out.println("Propietario eliminado exitosamente");
+                System.out.println("Viviendas afectadas: " + filas);
+            } else {
+                System.out.println("Error al eliminar Propietario");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error SQL: " + e.getMessage());
+        }
+    }
 }
