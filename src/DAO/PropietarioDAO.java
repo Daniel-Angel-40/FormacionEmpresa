@@ -105,4 +105,34 @@ public class PropietarioDAO {
             System.err.println("Error SQL: " + e.getMessage());
         }
     }
+
+    public static void actualizarPropietario(Propietario propietario) {
+
+        try(Connection con = ConexionBD.getConnection()) {
+
+            String sql = "{CALL sp_upd_propietario(?,?,?,?,?,?)}";
+
+            CallableStatement cs = con.prepareCall(sql);
+
+            cs.setInt(1, propietario.getId());
+            cs.setString(2, propietario.getDNI());
+            cs.setString(3, propietario.getNombre());
+            cs.setString(4, propietario.getCorreo());
+            cs.setString(5, propietario.getTelefono());
+            cs.registerOutParameter(6, Types.INTEGER);
+
+            cs.execute();
+
+            int error = cs.getInt(6);
+
+            if (error == 0) {
+                System.out.println("Propietario actualizado exitosamente");
+            } else {
+                System.out.println("Error al actualizar Propietario");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error SQL: " + e.getMessage());
+        }
+    }
 }
