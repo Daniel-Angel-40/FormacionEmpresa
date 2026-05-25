@@ -110,3 +110,41 @@ DELIMITER ;
 
 
 -- Procedimientos para la tabla Vivienda -------------------------------------------------------------------------------------------------------------------------------------------
+
+USE alquilaria_bd;
+DROP PROCEDURE IF EXISTS sp_ins_vivienda;
+DELIMITER //
+CREATE PROCEDURE sp_ins_vivienda(
+	IN p_id VARCHAR(10),
+    IN p_id_propietario INT,
+    IN p_direccion VARCHAR(100),
+    IN p_alquiler_mensual DECIMAL(10,2),
+    IN p_superficie DECIMAL(10,2),
+    IN p_descripcion VARCHAR(500),
+    IN p_permite_mascota BOOL,
+    IN p_tipo VARCHAR(15),
+    OUT err INT)
+BEGIN
+	
+    DECLARE EXIT HANDLER FOR 3819
+    BEGIN
+		SET err = 2;
+        ROLLBACK;
+    END;
+    
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+		SET err = 1;
+        ROLLBACK;
+    END;
+
+	INSERT INTO vivienda (id, id_propietario, direccion, alquiler_mensual, superficie, descripcion, permite_mascota, tipo) 
+    VALUES (p_id, p_id_propietario, p_direccion, p_alquiler_mensual, p_superficie, p_descripcion, p_permite_mascota, p_tipo);
+
+	SET err = 0;
+	COMMIT;
+END //
+DELIMITER ;
+
+
+
