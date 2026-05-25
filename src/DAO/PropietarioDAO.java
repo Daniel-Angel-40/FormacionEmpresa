@@ -46,8 +46,32 @@ public class PropietarioDAO {
             cs.close();
         } catch (SQLException e) {
             System.err.println("Error SQL: " + e.getMessage());
-            System.err.println("SQLState: " + e.getSQLState());
-            System.err.println("Código error: " + e.getErrorCode());
+        }
+    }
+
+    public static void consultarPropietario(int id) {
+
+        try (Connection con = ConexionBD.getConnection()) {
+
+            String sql = "{CALL sp_get_propietario(?)}";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                Propietario propietario = new Propietario(rs.getInt("id"), rs.getString("DNI"),
+                        rs.getString("nombre"), rs.getString("correo_electronico"), rs.getString("telefono"));
+                System.out.println(propietario);
+            } else {
+                System.out.println("No existe un propietario con el ID: " + id);
+            }
+
+
+        } catch (SQLException e) {
+            System.err.println("Error SQL: " + e.getMessage());
         }
     }
 }
