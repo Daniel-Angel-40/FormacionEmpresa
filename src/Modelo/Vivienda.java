@@ -4,7 +4,7 @@ public class Vivienda {
 
     // ATRIBUTOS
     private int id;
-    private Propietario propietario;
+    private int id_propietario;
     private String direccion;
     private double alquiler_mensual;
     private double superficie;
@@ -18,8 +18,8 @@ public class Vivienda {
         this.id = id;
     }
 
-    public void setPropietario(Propietario propietario) {
-        this.propietario = propietario;
+    public void setPropietario(int propietario) {
+        this.id_propietario = propietario;
     }
 
     public void setDireccion(String direccion) {
@@ -52,8 +52,8 @@ public class Vivienda {
         return id;
     }
 
-    public Propietario getPropietario() {
-        return propietario;
+    public int getPropietario() {
+        return id_propietario;
     }
 
     public String getDireccion() {
@@ -82,10 +82,10 @@ public class Vivienda {
 
     // CONTRUCTORES
 
-    public Vivienda(int id, Propietario propietario, double alquiler_mensual, String direccion, double superficie,
+    public Vivienda(int id, int propietario, double alquiler_mensual, String direccion, double superficie,
                     String descripcion, boolean permite_mascota, String tipo) {
         this.id = id;
-        this.propietario = propietario;
+        this.id_propietario = propietario;
         this.alquiler_mensual = alquiler_mensual;
         this.direccion = direccion;
         this.superficie = superficie;
@@ -102,7 +102,7 @@ public class Vivienda {
                 "║        DATOS DE LA VIVIENDA      ║\n" +
                 "╠══════════════════════════════════╣\n" +
                 "║ ID          : " + id + "\n" +
-                "║ Propietario : " + propietario.getId() + "\n" +
+                "║ Propietario : " + id_propietario + "\n" +
                 "║ Dirección   : " + direccion + "\n" +
                 "║ Alquiler    : " + alquiler_mensual + " €/mes\n" +
                 "║ Superficie  : " + superficie + " m²\n" +
