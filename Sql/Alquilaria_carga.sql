@@ -14,3 +14,47 @@ VALUES
 ('89012345H', 'Lucía Herrera Molina', 'lucia.herrera@example.com', '600888888'),
 ('90123456I', 'David Sánchez Ortega', 'david.sanchez@example.com', '600999999'),
 ('01234567J', 'Sara Jiménez Vega', 'sara.jimenez@example.com', '600123456');
+
+
+
+-- Tabla Vivienda
+INSERT INTO vivienda (
+    id,
+    id_propietario,
+    direccion,
+    alquiler_mensual,
+    superficie,
+    descripcion,
+    permite_mascota,
+    tipo
+)
+VALUES
+('VIV001', 1, 'Calle Mayor 12, Madrid', 850.00, 75.50,
+ 'Apartamento céntrico con balcón y buena iluminación.', 1, 'apartamento'),
+
+('VIV002', 2, 'Avenida del Puerto 45, Valencia', 1200.00, 110.00,
+ 'Ático moderno con terraza amplia y vistas al mar.', 1, 'atico'),
+
+('VIV003', 3, 'Calle Luna 8, Sevilla', 700.00, 65.00,
+ 'Apartamento reformado cerca del centro histórico.', 0, 'apartamento'),
+
+('VIV004', 4, 'Paseo de Gracia 101, Barcelona', 2500.00, 180.00,
+ 'Casa de lujo con jardín y piscina privada.', 1, 'casa'),
+
+('VIV005', 5, 'Calle Real 22, Málaga', 950.00, 80.00,
+ 'Apartamento acogedor ideal para parejas.', 1, 'apartamento'),
+
+('VIV006', 6, 'Calle Sol 14, Bilbao', 1500.00, 130.00,
+ 'Ático con excelente iluminación natural.', 0, 'atico'),
+
+('VIV007', 7, 'Avenida Andalucía 77, Granada', 1100.00, 95.00,
+ 'Casa familiar ubicada en zona tranquila.', 1, 'casa'),
+
+('VIV008', 8, 'Calle Jardines 3, Zaragoza', 780.00, 70.00,
+ 'Apartamento pequeño pero muy funcional.', 0, 'apartamento'),
+
+('VIV009', 9, 'Calle Cervantes 56, Alicante', 1350.00, 120.00,
+ 'Ático con terraza y plaza de garaje incluida.', 1, 'atico'),
+
+('VIV010', 10, 'Camino Verde 9, Murcia', 1600.00, 145.00,
+ 'Casa espaciosa con patio interior.', 1, 'casa');
