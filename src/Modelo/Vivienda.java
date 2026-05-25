@@ -3,7 +3,7 @@ package Modelo;
 public class Vivienda {
 
     // ATRIBUTOS
-    private int id;
+    private String id;
     private int id_propietario;
     private String direccion;
     private double alquiler_mensual;
@@ -14,7 +14,7 @@ public class Vivienda {
 
     // SETTERS
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -48,7 +48,7 @@ public class Vivienda {
 
     // GETTERS
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -82,7 +82,7 @@ public class Vivienda {
 
     // CONTRUCTORES
 
-    public Vivienda(int id, int propietario, double alquiler_mensual, String direccion, double superficie,
+    public Vivienda(String id, int propietario, double alquiler_mensual, String direccion, double superficie,
                     String descripcion, boolean permite_mascota, String tipo) {
         this.id = id;
         this.id_propietario = propietario;
