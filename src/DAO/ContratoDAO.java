@@ -1,4 +1,53 @@
 package DAO;
 
+import ConexionBD.ConexionBD;
+import Modelo.Contrato;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Types;
+
 public class ContratoDAO {
+
+    public static void insertarContrato(Contrato contrato) {
+
+        try (Connection con = ConexionBD.getConnection()) {
+
+            String sql = "{CALL sp_ins_contrato(?,?,?,?,?,?,?)}";
+
+            CallableStatement cs = con.prepareCall(sql);
+
+            cs.setString(1, contrato.getId_vivienda());
+            cs.setInt(2, contrato.getId_inquilino());
+            cs.setString(3, contrato.getFecha_inicio());
+            cs.setString(4, contrato.getFecha_fin());
+            cs.setDouble(5, contrato.getPrecio());
+            cs.registerOutParameter(6, Types.INTEGER);
+            cs.registerOutParameter(7, Types.INTEGER);
+
+            cs.execute();
+
+            int error = cs.getInt(6);
+            int id = cs.getInt(7);
+
+            switch (error) {
+                case 0:
+                    System.out.println("Contrato registrado exitosamente");
+                    System.out.println("ID del contrato: " + id);
+                    break;
+                case 1:
+                    System.out.println("Error al registrar contrato");
+                    break;
+                case 2:
+                    System.out.println("Datos invalidos del contrato");
+                    break;
+            }
+
+            cs.close();
+
+        } catch (SQLException ex) {
+            System.out.println("Error SQL: " + ex.getMessage());
+        }
+    }
 }
