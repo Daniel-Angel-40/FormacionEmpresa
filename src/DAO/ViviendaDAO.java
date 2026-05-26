@@ -82,6 +82,7 @@ public class ViviendaDAO {
                 System.out.println("No existe una vivienda con el ID: " + id);
             }
 
+            cs.close();
         } catch (SQLException e) {
             System.out.println("Error SQL: " + e.getMessage());
         }
@@ -112,6 +113,7 @@ public class ViviendaDAO {
                 System.out.println("No se ha eliminado la vivienda");
             }
 
+            cs.close();
         } catch (SQLException e) {
             System.out.println("Error SQL: " + e.getMessage());
         }
