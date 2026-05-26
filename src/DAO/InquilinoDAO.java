@@ -94,4 +94,35 @@ public class InquilinoDAO {
             System.out.println("Error SQL: " + e.getMessage());
         }
     }
+
+    public static void actualizarInquilino(Inquilino inquilino) {
+
+        try(Connection con = ConexionBD.getConnection()) {
+
+            String sql = "{CALL sp_upd_inquilino(?,?,?,?,?,?,?)}";
+
+            CallableStatement cs = con.prepareCall(sql);
+
+            cs.setInt(1, inquilino.getId());
+            cs.setString(2, inquilino.getDNI());
+            cs.setString(3, inquilino.getNombre());
+            cs.setString(4, inquilino.getCorreo());
+            cs.setString(5, inquilino.getTelefono());
+            cs.setBoolean(6, inquilino.isTiene_mascota());
+            cs.registerOutParameter(7, Types.INTEGER);
+
+            cs.execute();
+
+            int error = cs.getInt(7);
+
+            if(error == 0) {
+                System.out.println("Inquilino actualizado correctamente");
+            } else {
+                System.out.println("Error al actualizar inquilino");
+            }
+            cs.close();
+        } catch (SQLException e) {
+            System.out.println("Error SQL: " + e.getMessage());
+        }
+    }
 }
