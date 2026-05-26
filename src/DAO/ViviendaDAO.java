@@ -86,4 +86,34 @@ public class ViviendaDAO {
             System.out.println("Error SQL: " + e.getMessage());
         }
     }
+
+    public static void eliminarVivienda(String id) {
+
+        try (Connection con = ConexionBD.getConnection()) {
+
+            String sql = "{CALL sp_del_vivienda(?, ?, ?)}";
+
+            CallableStatement cs = con.prepareCall(sql);
+
+            cs.setString(1, id);
+            cs.registerOutParameter(2, Types.INTEGER);
+            cs.registerOutParameter(3, Types.INTEGER);
+
+            cs.execute();
+
+            int error = cs.getInt(2);
+            int filas = cs.getInt(3);
+
+            if (error == 0) {
+                System.out.println("Vivienda eliminada exitosamente");
+                System.out.println("Contratos afectados: " + filas);
+            } else {
+                System.out.println("Error al eliminar la vivienda");
+                System.out.println("No se ha eliminado la vivienda");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error SQL: " + e.getMessage());
+        }
+    }
 }
