@@ -399,3 +399,15 @@ BEGIN
 END //
 DELIMITER ;
 
+
+
+USE alquilaria_bd;
+DROP PROCEDURE IF EXISTS sp_get_contrato;
+DELIMITER //
+CREATE PROCEDURE sp_get_contrato(
+	IN p_id INT)
+BEGIN
+	SELECT * FROM contrato WHERE id = p_id;
+END //
+DELIMITER ;
+
