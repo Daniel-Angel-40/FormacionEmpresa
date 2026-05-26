@@ -195,3 +195,85 @@ END //
 DELIMITER ;
 
 
+USE alquilaria_bd;
+DROP PROCEDURE IF EXISTS sp_upd_vivienda;
+DELIMITER //
+CREATE PROCEDURE sp_upd_vivienda(
+	IN p_id VARCHAR(10),
+    IN p_id_propietario INT,
+    IN p_direccion VARCHAR(100),
+    IN p_alquiler_mensual DECIMAL(10,2),
+    IN p_superficie DECIMAL(10,2),
+    IN p_descripcion VARCHAR(500),
+    IN p_permite_mascota BOOL,
+    IN p_tipo VARCHAR(15),
+    OUT err INT)
+BEGIN
+	
+    DECLARE EXIT HANDLER FOR 3819
+    BEGIN
+		SET err = 2;
+        ROLLBACK;
+    END;
+    
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+		SET err = 1;
+        ROLLBACK;
+    END;
+    
+    START TRANSACTION;
+    
+    UPDATE vivienda SET id_propietario = p_id_propietario, direccion = p_direccion, alquiler_mensual = p_alquiler_mensual, 
+    superficie = p_superficie, descripcion = p_descripcion, permite_mascota = p_permite_mascota, tipo = p_tipo WHERE id = p_id;
+    
+    
+    SET err = 0;
+    COMMIT;
+END //
+DELIMITER ;
+
+
+
+
+
+
+-- Procedimientos para Inquilino --------------------------------------------------------------------------------------------------------------------------------------------------
+
+USE alquilaria_bd;
+DROP PROCEDURE IF EXISTS sp_ins_inquilino;
+DELIMITER //
+CREATE PROCEDURE sp_ins_inquilino(
+	IN p_DNI VARCHAR(11),
+    IN p_nombre VARCHAR(150),
+    IN p_correo_electronico VARCHAR(200),
+    IN p_telefono VARCHAR(11),
+    IN p_tiene_mascota BOOL,
+    OUT err INT,
+    OUT id INT)
+BEGIN
+	
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+		SET err = 1;
+        SET id = -1;
+        ROLLBACK;
+    END;
+    
+    START TRANSACTION;
+    
+    INSERT INTO inquilino (DNI, nombre, correo_electronico, telefono, tiene_mascota) 
+    VALUES (p_DNI, p_nombre, p_correo_electronico, p_telefono, p_tiene_mascota);
+    
+    SET id = LAST_INSERT_ID();
+    
+    SET err = 0;
+    COMMIT;
+END //
+DELIMITER ;
+
+
+
+
+
+
