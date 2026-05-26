@@ -274,6 +274,13 @@ DELIMITER ;
 
 
 
-
-
+USE alquilaria_bd;
+DROP PROCEDURE IF EXISTS sp_get_inquilino;
+DELIMITER //
+CREATE PROCEDURE sp_get_inquilino(
+	IN p_id INT)
+BEGIN
+	SELECT * FROM inquilino WHERE id = p_id;
+END //
+DELIMITER ;
 
