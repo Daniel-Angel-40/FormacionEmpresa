@@ -369,7 +369,6 @@ CREATE PROCEDURE sp_ins_contrato(
     IN p_fecha_inicio DATE,
     IN p_fecha_fin DATE,
     IN p_precio DECIMAL(10,2),
-    IN p_estado VARCHAR(10),
     OUT err INT,
     OUT id INT)
 BEGIN
@@ -391,7 +390,7 @@ BEGIN
     START TRANSACTION;
     
     INSERT INTO contrato (id_vivienda, id_inquilino, fecha_inicio, fecha_fin, precio, estado) 
-    VALUES (p_id_vivienda, p_id_inquilino, p_fecha_inicio, p_fecha_fin, p_precio, p_estado);
+    VALUES (p_id_vivienda, p_id_inquilino, p_fecha_inicio, p_fecha_fin, p_precio, DEFAULT);
     
     SET id = LAST_INSERT_ID();
     
