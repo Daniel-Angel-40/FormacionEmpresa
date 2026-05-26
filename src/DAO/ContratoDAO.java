@@ -3,10 +3,7 @@ package DAO;
 import ConexionBD.ConexionBD;
 import Modelo.Contrato;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Types;
+import java.sql.*;
 
 public class ContratoDAO {
 
@@ -48,6 +45,32 @@ public class ContratoDAO {
 
         } catch (SQLException ex) {
             System.out.println("Error SQL: " + ex.getMessage());
+        }
+    }
+
+    public static void consultarContrato(int id) {
+
+        try (Connection con = ConexionBD.getConnection()) {
+
+            String sql = "{CALL sp_get_contrato(?)}";
+
+            CallableStatement cs = con.prepareCall(sql);
+
+            cs.setInt(1, id);
+
+            ResultSet rs = cs.executeQuery();
+
+            if (rs.next()) {
+                Contrato c = new Contrato(rs.getInt("id"), rs.getString("id_vivienda"),
+                        rs.getInt("id_inquilino"), rs.getDouble("precio"), rs.getString("fecha_fin"),
+                        rs.getString("fecha_inicio"), rs.getString("estado"));
+                System.out.println(c);
+            } else {
+                System.out.println("No existe contrato con el ID: " + id);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error SQL: " + e.getMessage());
         }
     }
 }
