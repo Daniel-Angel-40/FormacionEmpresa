@@ -3,10 +3,7 @@ package DAO;
 import ConexionBD.ConexionBD;
 import Modelo.Vivienda;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Types;
+import java.sql.*;
 
 public class ViviendaDAO {
 
@@ -40,7 +37,7 @@ public class ViviendaDAO {
             int error = cs.getInt(9);
 
             // En caso de que el error sea 1 es un error generico y si es 2 es un error de tipo CHECK
-            switch (error){
+            switch (error) {
                 case 0:
                     System.out.println("Vivienda insertada exitosamente");
                     break;
@@ -55,6 +52,35 @@ public class ViviendaDAO {
 
             // Cierro el CallableStatment
             cs.close();
+
+        } catch (SQLException e) {
+            System.out.println("Error SQL: " + e.getMessage());
+        }
+    }
+
+    public static void consultarViviendas(String id) {
+
+        try (Connection con = ConexionBD.getConnection()) {
+
+            String sql = "{CALL sp_get_vivienda(?)}";
+
+            CallableStatement cs = con.prepareCall(sql);
+
+            cs.setString(1, id);
+
+            ResultSet rs = cs.executeQuery();
+
+            if (rs.next()) {
+
+                Vivienda v = new Vivienda(rs.getString("id"), rs.getInt("id_propietario"),
+                        rs.getDouble("alquiler_mensual"), rs.getString("direccion"),
+                        rs.getDouble("superficie"), rs.getString("descripcion"),
+                        rs.getBoolean("permite_mascota"), rs.getString("tipo"));
+
+                System.out.println(v);
+            } else {
+                System.out.println("No existe una vivienda con el ID: " + id);
+            }
 
         } catch (SQLException e) {
             System.out.println("Error SQL: " + e.getMessage());
