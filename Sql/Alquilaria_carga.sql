@@ -58,3 +58,17 @@ VALUES
 
 ('VIV010', 10, 'Camino Verde 9, Murcia', 1600.00, 145.00,
  'Casa espaciosa con patio interior.', 1, 'casa');
+ 
+ 
+-- Tabla Inquilino
+INSERT INTO inquilino (DNI, nombre, correo_electronico, telefono, tiene_mascota) VALUES
+('12345678A', 'Carlos Martínez', 'carlos.martinez@gmail.com', '612345678', 1),
+('23456789B', 'Lucía Fernández', 'lucia.fernandez@hotmail.com', '623456789', 0),
+('34567890C', 'Miguel Sánchez', 'miguel.sanchez@yahoo.com', '634567890', 1),
+('45678901D', 'Ana Gómez', 'ana.gomez@gmail.com', '645678901', 0),
+('56789012E', 'David Ruiz', 'david.ruiz@outlook.com', '656789012', 1),
+('67890123F', 'Elena Navarro', 'elena.navarro@gmail.com', '667890123', 0),
+('78901234G', 'Javier Torres', 'javier.torres@hotmail.com', '678901234', 1),
+('89012345H', 'Marta López', 'marta.lopez@yahoo.com', '689012345', 0),
+('90123456J', 'Pablo Herrera', 'pablo.herrera@gmail.com', '690123456', 1),
+('01234567K', 'Sara Molina', 'sara.molina@outlook.com', '601234567', 0);
