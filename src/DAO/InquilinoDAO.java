@@ -3,10 +3,7 @@ package DAO;
 import ConexionBD.ConexionBD;
 import Modelo.Inquilino;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Types;
+import java.sql.*;
 
 public class InquilinoDAO {
 
@@ -36,6 +33,31 @@ public class InquilinoDAO {
                 System.out.println("ID: " + id);
             } else {
                 System.out.println("Error al insertar inquilino");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error SQL: " + e.getMessage());
+        }
+    }
+
+    public static void consultarInquilino(int id) {
+
+        try (Connection con = ConexionBD.getConnection()) {
+
+            String sql = "{CALL sp_get_inquilino(?)}";
+
+            CallableStatement cs = con.prepareCall(sql);
+
+            cs.setInt(1, id);
+
+            ResultSet rs = cs.executeQuery();
+
+            if (rs.next()) {
+                Inquilino i = new Inquilino(rs.getInt("id"), rs.getString("DNI"), rs.getString("nombre"),
+                        rs.getString("correo_electronico"), rs.getString("telefono"), rs.getBoolean("tiene_mascota"));
+                System.out.println(i);
+            } else {
+                System.out.println("Error al consultar inquilino");
             }
 
         } catch (SQLException e) {
