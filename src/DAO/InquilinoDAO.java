@@ -34,7 +34,7 @@ public class InquilinoDAO {
             } else {
                 System.out.println("Error al insertar inquilino");
             }
-
+            cs.close();
         } catch (SQLException e) {
             System.out.println("Error SQL: " + e.getMessage());
         }
@@ -59,7 +59,7 @@ public class InquilinoDAO {
             } else {
                 System.out.println("Error al consultar inquilino");
             }
-
+            cs.close();
         } catch (SQLException e) {
             System.out.println("Error SQL: " + e.getMessage());
         }
