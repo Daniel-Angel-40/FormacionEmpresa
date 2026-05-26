@@ -157,9 +157,41 @@ BEGIN
 END //
 DELIMITER ;
 
-CALL sp_get_vivienda('codigo');
 
 
-
+USE alquilaria_bd;
+DROP PROCEDURE IF EXISTS sp_del_vivienda;
+DELIMITER //
+CREATE PROCEDURE sp_del_vivienda(
+	IN p_id VARCHAR(10),
+    OUT err INT,
+    OUT filas INT)
+BEGIN
+	
+		DECLARE EXIT HANDLER FOR SQLEXCEPTION
+        BEGIN
+			SET err = 1;
+            SET filas = 0;
+            ROLLBACK;
+        END;
+        
+        START TRANSACTION;
+    
+    DELETE FROM contrato WHERE id_vivienda = p_id;
+    
+    SET filas = ROW_COUNT();
+    
+    DELETE FROM vivienda WHERE id = p_id;
+    
+	IF ROW_COUNT() = 0 THEN
+		SET err = 1;
+        SET filas = 0;
+        ROLLBACK;
+    ELSE
+        SET err = 0;
+        COMMIT;
+	END IF;
+END //
+DELIMITER ;
 
 
