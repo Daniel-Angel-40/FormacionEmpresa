@@ -64,4 +64,34 @@ public class InquilinoDAO {
             System.out.println("Error SQL: " + e.getMessage());
         }
     }
+
+    public static void eliminarInquilino(int id) {
+
+        try(Connection con = ConexionBD.getConnection()) {
+
+            String sql = "{CALL sp_del_inquilino(?,?,?)}";
+
+            CallableStatement cs = con.prepareCall(sql);
+
+            cs.setInt(1, id);
+            cs.registerOutParameter(2, Types.INTEGER);
+            cs.registerOutParameter(3, Types.INTEGER);
+
+            cs.execute();
+
+            int error = cs.getInt(2);
+            int filas = cs.getInt(3);
+
+            if (error == 0) {
+                System.out.println("Inquilino eliminado correctamente");
+                System.out.println("Contratos afectados: " + filas);
+            } else {
+                System.out.println("Error al eliminar inquilino");
+            }
+
+            cs.close();
+        } catch (SQLException e) {
+            System.out.println("Error SQL: " + e.getMessage());
+        }
+    }
 }
