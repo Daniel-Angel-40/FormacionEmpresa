@@ -323,6 +323,36 @@ DELIMITER ;
 
 
 
-
-
+USE alquilaria_bd;
+DROP PROCEDURE IF EXISTS sp_upd_inquilino;
+DELIMITER //
+CREATE PROCEDURE sp_upd_inquilino(
+	IN p_id INT,
+    IN p_DNI VARCHAR(11),
+    IN p_nombre VARCHAR(150),
+    IN p_correo VARCHAR(200),
+    IN p_telefono VARCHAR(11),
+    IN p_mascota BOOL,
+    OUT err INT)
+BEGIN
+	
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+		SET err = 1;
+        ROLLBACK;
+    END;
+    
+    START TRANSACTION;
+	
+    UPDATE inquilino SET DNI = p_DNI, nombre = p_nombre, correo_electronico = p_correo, telefono = p_telefono, tiene_mascota = p_mascota WHERE id = p_id;
+    
+    IF ROW_COUNT() = 0 THEN
+		SET err = 1;
+        ROLLBACK;
+	ELSE
+		SET err = 0;
+		COMMIT;
+    END IF;
+END //
+DELIMITER ;
 
