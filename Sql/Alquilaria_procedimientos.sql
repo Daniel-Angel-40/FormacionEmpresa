@@ -284,3 +284,45 @@ BEGIN
 END //
 DELIMITER ;
 
+
+
+USE alquilaria_bd;
+DROP PROCEDURE IF EXISTS sp_del_inquilino;
+DELIMITER //
+CREATE PROCEDURE sp_del_inquilino(
+	IN p_id INT,
+    OUT err INT,
+    OUT filas INT)
+BEGIN
+	
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+		SET err = 1;
+        SET filas = 0;
+        ROLLBACK;
+    END;
+    
+    START TRANSACTION;
+    
+    DELETE FROM contrato WHERE id_inquilino = p_id;
+    
+    SET filas = ROW_COUNT();
+    
+    DELETE FROM inquilino WHERE id = p_id;
+    
+    IF ROW_COUNT() = 0 THEN
+		SET err = 1;
+		SET filas = 0;
+		ROLLBACK;
+    ELSE
+		SET err = 0;
+		COMMIT;
+    END IF;
+END //
+DELIMITER ;
+
+
+
+
+
+
