@@ -68,7 +68,7 @@ public class ContratoDAO {
             } else {
                 System.out.println("No existe contrato con el ID: " + id);
             }
-
+            cs.close();
         } catch (SQLException e) {
             System.out.println("Error SQL: " + e.getMessage());
         }
