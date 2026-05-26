@@ -82,6 +82,22 @@ public class Inquilino {
         this.DNI = DNI;
     }
 
+    public Inquilino(String DNI, String nombre, String correo, String telefono, boolean tiene_mascota) {
+        this.DNI = DNI;
+        this.nombre = nombre;
+        if (correo.isBlank()) {
+            this.correo = null;
+        } else {
+            this.correo = correo;
+        }
+        if (telefono.isBlank()) {
+            this.telefono = null;
+        } else {
+            this.telefono = telefono;
+        }
+        this.tiene_mascota = tiene_mascota;
+    }
+
     // METODOS
 
     @Override
