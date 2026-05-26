@@ -147,4 +147,19 @@ END //
 DELIMITER ;
 
 
+USE alquilaria_bd;
+DROP PROCEDURE IF EXISTS sp_get_vivienda;
+DELIMITER //
+CREATE PROCEDURE sp_get_vivienda(
+	IN p_id VARCHAR(10))
+BEGIN
+	SELECT * FROM vivienda WHERE id = p_id;
+END //
+DELIMITER ;
+
+CALL sp_get_vivienda('codigo');
+
+
+
+
 
