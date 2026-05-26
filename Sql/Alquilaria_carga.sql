@@ -72,3 +72,33 @@ INSERT INTO inquilino (DNI, nombre, correo_electronico, telefono, tiene_mascota)
 ('89012345H', 'Marta López', 'marta.lopez@yahoo.com', '689012345', 0),
 ('90123456J', 'Pablo Herrera', 'pablo.herrera@gmail.com', '690123456', 1),
 ('01234567K', 'Sara Molina', 'sara.molina@outlook.com', '601234567', 0);
+
+-- Tabla Contrato
+INSERT INTO contrato (
+    id_vivienda,
+    id_inquilino,
+    fecha_inicio,
+    fecha_fin,
+    precio,
+    estado
+)
+VALUES
+('VIV001', 1, '2025-01-01', '2025-12-31', 850.00, 'activo'),
+
+('VIV002', 2, '2025-02-15', '2026-02-14', 1200.00, 'activo'),
+
+('VIV003', 3, '2024-01-10', '2024-12-31', 700.00, 'vencido'),
+
+('VIV004', 4, '2025-03-01', '2026-03-01', 2500.00, 'pendiente'),
+
+('VIV005', 5, '2025-04-01', '2026-03-31', 950.00, 'activo'),
+
+('VIV006', 6, '2023-06-01', '2024-05-31', 1500.00, 'vencido'),
+
+('VIV007', 7, '2025-05-15', '2026-05-14', 1100.00, 'pendiente'),
+
+('VIV008', 8, '2025-01-20', '2025-11-20', 780.00, 'activo'),
+
+('VIV009', 9, '2024-07-01', '2025-06-30', 1350.00, 'activo'),
+
+('VIV010', 10, '2025-08-01', '2026-07-31', 1600.00, 'pendiente');
