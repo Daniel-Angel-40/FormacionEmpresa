@@ -118,4 +118,46 @@ public class ViviendaDAO {
             System.out.println("Error SQL: " + e.getMessage());
         }
     }
+
+    public static void actualizarVivienda(Vivienda vivienda) {
+
+        try(Connection con = ConexionBD.getConnection()) {
+
+            String sql = "{CALL sp_upd_vivienda(?,?,?,?,?,?,?,?,?)}";
+
+            CallableStatement cs = con.prepareCall(sql);
+
+            cs.setString(1, vivienda.getId());
+            cs.setInt(2, vivienda.getPropietario());
+            cs.setString(3, vivienda.getDireccion());
+            cs.setDouble(4, vivienda.getAlquiler_mensual());
+            cs.setDouble(5, vivienda.getSuperficie());
+            cs.setString(6, vivienda.getDescripcion());
+            cs.setBoolean(7, vivienda.isPermite_mascota());
+            cs.setString(8, vivienda.getTipo());
+            cs.registerOutParameter(9, Types.INTEGER);
+
+            cs.execute();
+
+            int error = cs.getInt(9);
+
+            switch (error) {
+                case 0:
+                    System.out.println("Vivienda actualizada exitosamente");
+                    break;
+                case 1:
+                    System.out.println("Error al actualizar la vivienda");
+                    break;
+                case 2:
+                    System.out.println("ERROR");
+                    System.out.println("El tipo de casa de ser apartamento/atico/casa");
+                    break;
+            }
+
+            cs.close();
+
+        }catch (SQLException e) {
+            System.out.println("Error SQL: " + e.getMessage());
+        }
+    }
 }
