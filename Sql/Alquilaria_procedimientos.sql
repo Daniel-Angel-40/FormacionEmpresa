@@ -356,3 +356,47 @@ BEGIN
 END //
 DELIMITER ;
 
+
+
+-- Procedimientos para Contrato --------------------------------------------------------------------------------------------------------------------------------------------------
+
+USE alquilaria_bd;
+DROP PROCEDURE IF EXISTS sp_ins_contrato;
+DELIMITER //
+CREATE PROCEDURE sp_ins_contrato(
+	IN p_id_vivienda VARCHAR(10),
+    IN p_id_inquilino INT,
+    IN p_fecha_inicio DATE,
+    IN p_fecha_fin DATE,
+    IN p_precio DECIMAL(10,2),
+    IN p_estado VARCHAR(10),
+    OUT err INT,
+    OUT id INT)
+BEGIN
+    
+    DECLARE EXIT HANDLER FOR 3819
+    BEGIN
+		SET err = 2;
+        SET id = -1;
+        ROLLBACK;
+    END;
+    
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+		SET err = 1;
+        SET id = -1;
+        ROLLBACK;
+    END;
+    
+    START TRANSACTION;
+    
+    INSERT INTO contrato (id_vivienda, id_inquilino, fecha_inicio, fecha_fin, precio, estado) 
+    VALUES (p_id_vivienda, p_id_inquilino, p_fecha_inicio, p_fecha_fin, p_precio, p_estado);
+    
+    SET id = LAST_INSERT_ID();
+    
+    SET err = 0;
+    COMMIT;
+END //
+DELIMITER ;
+
