@@ -52,21 +52,31 @@ DELIMITER //
 CREATE PROCEDURE sp_del_propietario(
 	IN p_id INT,
     OUT err INT,
-    OUT filas INT)
+    OUT viviendas INT,
+    OUT contratos INT)
 BEGIN
+
+	DECLARE codigo VARCHAR(10);
 
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION
     BEGIN
 		SET err = 1;
-        SET filas = 0;
+        SET viviendas = 0;
+        SET contratos = 0;
         ROLLBACK;
     END;
 
 	START TRANSACTION;
     
+    SELECT id INTO codigo FROM vivienda WHERE id_propietario = p_id;
+    
+    DELETE FROM contrato WHERE codigo = id_vivienda;
+    
+    SET contratos = ROW_COUNT();
+    
     DELETE FROM vivienda WHERE id_propietario = p_id;
     
-    SET filas = ROW_COUNT();
+    SET viviendas = ROW_COUNT();
     
     DELETE FROM propietario WHERE id = p_id;
     
