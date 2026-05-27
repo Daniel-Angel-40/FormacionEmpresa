@@ -8,7 +8,7 @@ import java.sql.*;
 public class ViviendaDAO {
 
     // Funcion para insertar una vivienda en la tabla Vivienda
-    public static void insertarVivienda(Vivienda vivienda) {
+    public static int insertarVivienda(Vivienda vivienda) {
 
         // Inicio la conexion el try para que cuando termine cierre la conexion automaticamente
         try (Connection connection = ConexionBD.getConnection()) {
@@ -39,15 +39,13 @@ public class ViviendaDAO {
             // En caso de que el error sea 1 es un error generico y si es 2 es un error de tipo CHECK
             switch (error) {
                 case 0:
-                    System.out.println("Vivienda insertada exitosamente");
-                    break;
+                    return 0;
+
                 case 1:
-                    System.out.println("Error al insertar la vivienda");
-                    break;
+                    return -1;
+
                 case 2:
-                    System.out.println("El tipo de casa de ser apartamento/atico/casa");
-                    System.out.println("No se ha insertado la vivienda");
-                    break;
+                    return -2;
             }
 
             // Cierro el CallableStatment
@@ -55,10 +53,12 @@ public class ViviendaDAO {
 
         } catch (SQLException e) {
             System.out.println("Error SQL: " + e.getMessage());
+            return -1;
         }
+        return -1;
     }
 
-    public static void consultarViviendas(String id) {
+    public static Vivienda consultarViviendas(String id) {
 
         try (Connection con = ConexionBD.getConnection()) {
 
@@ -77,14 +77,14 @@ public class ViviendaDAO {
                         rs.getDouble("superficie"), rs.getString("descripcion"),
                         rs.getBoolean("permite_mascota"), rs.getString("tipo"));
 
-                System.out.println(v);
+                return v;
             } else {
-                System.out.println("No existe una vivienda con el ID: " + id);
+                return null;
             }
 
-            cs.close();
         } catch (SQLException e) {
             System.out.println("Error SQL: " + e.getMessage());
+            return null;
         }
     }
 
@@ -110,7 +110,6 @@ public class ViviendaDAO {
                 System.out.println("Contratos afectados: " + filas);
             } else {
                 System.out.println("Error al eliminar la vivienda");
-                System.out.println("No se ha eliminado la vivienda");
             }
 
             cs.close();
@@ -119,7 +118,7 @@ public class ViviendaDAO {
         }
     }
 
-    public static void actualizarVivienda(Vivienda vivienda) {
+    public static int actualizarVivienda(Vivienda vivienda) {
 
         try(Connection con = ConexionBD.getConnection()) {
 
@@ -143,21 +142,17 @@ public class ViviendaDAO {
 
             switch (error) {
                 case 0:
-                    System.out.println("Vivienda actualizada exitosamente");
-                    break;
+                    return 0;
                 case 1:
-                    System.out.println("Error al actualizar la vivienda");
-                    break;
+                    return -1;
                 case 2:
-                    System.out.println("ERROR");
-                    System.out.println("El tipo de casa de ser apartamento/atico/casa");
-                    break;
+                    return -2;
             }
-
-            cs.close();
 
         }catch (SQLException e) {
             System.out.println("Error SQL: " + e.getMessage());
+            return -1;
         }
+        return -1;
     }
 }
