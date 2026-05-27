@@ -491,3 +491,37 @@ BEGIN
 END //
 DELIMITER ;
 
+
+USE alquilaria_bd;
+DROP PROCEDURE IF EXISTS sp_actualizar_estado_contrato;
+DELIMITER //
+CREATE PROCEDURE sp_actualizar_estado_contrato(
+	IN p_id INT,
+    IN p_num INT,
+    OUT err INT)
+BEGIN
+    
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+		SET err = 1;
+        ROLLBACK;
+    END;
+    
+    START TRANSACTION;
+
+	CASE p_num
+		WHEN 1 THEN UPDATE contrato SET estado = 'pendiente' WHERE id = p_id;
+        WHEN 2 THEN UPDATE contrato SET estado = 'activo' WHERE id = p_id;
+        WHEN 3 THEN UPDATE contrato SET estado = 'vencido' WHERE id = p_id;
+    END CASE;
+    
+    IF ROW_COUNT() = 0 THEN
+		SET err = 1;
+        ROLLBACK;
+	ELSE
+		SET err = 0;
+		COMMIT;
+	END IF;
+END //
+DELIMITER ;
+
