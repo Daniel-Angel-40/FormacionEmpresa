@@ -148,7 +148,6 @@ public class VistaPropietario {
 
         Propietario p = ControladorPropietario.consultar(id);
         if (p == null) {
-            System.out.println("No existe Propietario con el ID: " + id);
             return;
         }
 
