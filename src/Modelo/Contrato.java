@@ -93,7 +93,15 @@ public class Contrato {
         this.estado = "pendiente";
     }
 
-    // METODOS
+    public Contrato(int id, String fecha_inicio, String fecha_fin, double precio, String estado) {
+        this.id = id;
+        this.fecha_inicio = fecha_inicio;
+        this.fecha_fin = fecha_fin;
+        this.precio = precio;
+        this.estado = estado;
+    }
+
+// METODOS
 
     @Override
     public String toString() {
