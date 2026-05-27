@@ -139,4 +139,36 @@ public class ContratoDAO {
         }
         return -1;
     }
+
+    public static int actualizarestadoContrato(int id, int estado) {
+
+        try (Connection con = ConexionBD.getConnection()) {
+
+            String sql = "{CALL sp_actualizar_estado_contrato(?,?,?)}";
+
+            CallableStatement cs = con.prepareCall(sql);
+
+            cs.setInt(1, id);
+            cs.setInt(2, estado);
+            cs.registerOutParameter(3, Types.INTEGER);
+
+            cs.execute();
+
+            int error = cs.getInt(3);
+
+            switch (error) {
+                case 0:
+                    return 0;
+
+                case 1:
+                    return -1;
+            }
+
+            cs.close();
+        } catch (SQLException e) {
+            System.out.println("Error SQL: " + e.getMessage());
+            return -1;
+        }
+        return -1;
+    }
 }
