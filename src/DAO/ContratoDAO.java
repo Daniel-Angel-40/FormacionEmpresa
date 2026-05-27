@@ -76,7 +76,7 @@ public class ContratoDAO {
 
     public static void eliminarContrato(int id) {
 
-        try(Connection con = ConexionBD.getConnection()) {
+        try (Connection con = ConexionBD.getConnection()) {
 
             String sql = "{CALL sp_del_contrato(?,?)}";
 
@@ -94,6 +94,43 @@ public class ContratoDAO {
             } else {
                 System.out.println("Error al eliminar contrato");
             }
+            cs.close();
+        } catch (SQLException e) {
+            System.out.println("Error SQL: " + e.getMessage());
+        }
+    }
+
+    public static void actualizarContrato(Contrato contrato) {
+
+        try (Connection con = ConexionBD.getConnection()) {
+
+            String sql = "{CALL sp_upd_contrato(?,?,?,?,?,?)}";
+
+            CallableStatement cs = con.prepareCall(sql);
+
+            cs.setInt(1, contrato.getId());
+            cs.setString(2, contrato.getFecha_inicio());
+            cs.setString(3, contrato.getFecha_fin());
+            cs.setDouble(4, contrato.getPrecio());
+            cs.setString(5, contrato.getEstado());
+            cs.registerOutParameter(6, Types.INTEGER);
+
+            cs.execute();
+
+            int error = cs.getInt(6);
+
+            switch (error) {
+                case 0:
+                    System.out.println("Contrato actualizado exitosamente");
+                    break;
+                case 1:
+                    System.out.println("Error al actualizar contrato");
+                    break;
+                case 2:
+                    System.out.println("Datos invalidos del contrato");
+                    break;
+            }
+
             cs.close();
         } catch (SQLException e) {
             System.out.println("Error SQL: " + e.getMessage());
