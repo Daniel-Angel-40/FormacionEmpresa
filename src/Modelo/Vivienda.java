@@ -94,6 +94,16 @@ public class Vivienda {
         this.tipo = tipo;
     }
 
+    public Vivienda(int id_propietario, String direccion, double alquiler_mensual, double superficie, boolean permite_mascota, String descripcion, String tipo) {
+        this.id_propietario = id_propietario;
+        this.direccion = direccion;
+        this.alquiler_mensual = alquiler_mensual;
+        this.superficie = superficie;
+        this.permite_mascota = permite_mascota;
+        this.descripcion = descripcion;
+        this.tipo = tipo;
+    }
+
     // METODOS
 
     @Override
