@@ -443,5 +443,41 @@ DELIMITER ;
 
 
 
+USE alquilaria_bd;
+DROP PROCEDURE IF EXISTS sp_upd_contrato;
+DELIMITER //
+CREATE PROCEDURE sp_upd_contrato(
+	IN p_id INT,
+    IN p_inicio DATE,
+    IN p_fin DATE,
+    IN p_precio DECIMAL(10,2),
+    IN p_estado VARCHAR(10),
+    OUT err INT)
+BEGIN
 
+	DECLARE EXIT HANDLER FOR 3819
+    BEGIN
+		SET err = 2;
+        ROLLBACK;
+    END;
+    
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+		SET err = 1;
+        ROLLBACK;
+    END;
+
+	START TRANSACTION;
+	
+    UPDATE contrato SET fecha_inicio = p_inicio, fecha_fin = p_fin, precio = p_precio, estado = p_estado WHERE id = p_id;
+    
+    IF ROW_COUNT() = 0 THEN
+		SET err = 1;
+        ROLLBACK;
+	ELSE
+		SET err = 0;
+        COMMIT;
+    END IF;
+END //
+DELIMITER ;
 
