@@ -161,7 +161,7 @@ public class VistaContrato {
         System.out.println("¿Estas seguro de eliminar el contrato?(S/n): ");
         boolean respuesta = sc.nextLine().trim().equalsIgnoreCase("s");
 
-        if(!respuesta){
+        if (!respuesta) {
             System.out.println("Operacion cancelada");
             return;
         }
@@ -170,5 +170,34 @@ public class VistaContrato {
     }
 
     private static void cambiarEstadoContrato() {
+
+        System.out.println("\n── Cambiar estado del contrato ──");
+        System.out.print("ID del contrato: ");
+
+        int id = sc.nextInt();
+
+        Contrato c = ControladorContrato.consultar(id);
+
+        if (c == null) {
+            System.out.println("No existe el contrato con el ID: " + id);
+            return;
+        }
+
+        System.out.println("Estado actual: " + c.getEstado());
+
+        System.out.println("Elige una opcion del 1-3(1/2/3)");
+        System.out.print("Nuevo estado (pendiente/activo/vencido): ");
+        int respuesta = sc.nextInt();
+
+        int resultado = ControladorContrato.estado(id, respuesta);
+
+        switch (resultado) {
+            case 0:
+                System.out.println("Estado actualizado correctamente");
+                break;
+            case -1:
+                System.out.println("Error al actualizar el estado");
+                break;
+        }
     }
 }
