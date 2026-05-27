@@ -29,4 +29,9 @@ public class ControladorContrato {
 
         ContratoDAO.eliminarContrato(id);
     }
+
+    public static int estado(int id, int estado){
+
+        return ContratoDAO.actualizarestadoContrato(id, estado);
+    }
 }
