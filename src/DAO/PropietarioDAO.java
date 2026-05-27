@@ -97,13 +97,15 @@ public class PropietarioDAO {
             cs.setInt(1, id);
             cs.registerOutParameter(2, Types.INTEGER);
             cs.registerOutParameter(3, Types.INTEGER);
+            cs.registerOutParameter(4, Types.INTEGER);
 
             // Ejecuto
             cs.execute();
 
             // Asigno a las varibles los parametros de salida
             int error = cs.getInt(2);
-            int filas = cs.getInt(3);
+            int viviendas = cs.getInt(3);
+            int contratos = cs.getInt(4);
 
             // Cierro el CallableStatment
             cs.close();
@@ -111,7 +113,8 @@ public class PropietarioDAO {
             // Compruebo que no haya error y muestro la viviendas afectadas al eliminar el propietario
             if (error == 0) {
                 System.out.println("Propietario eliminado exitosamente");
-                System.out.println("Viviendas afectadas: " + filas);
+                System.out.println("Viviendas afectadas: " + viviendas);
+                System.out.println("Contratos afectados: " + contratos);
             } else {
                 System.out.println("Error al eliminar Propietario");
             }
