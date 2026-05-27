@@ -7,7 +7,7 @@ import java.sql.*;
 
 public class ContratoDAO {
 
-    public static void insertarContrato(Contrato contrato) {
+    public static int insertarContrato(Contrato contrato) {
 
         try (Connection con = ConexionBD.getConnection()) {
 
@@ -30,25 +30,25 @@ public class ContratoDAO {
 
             switch (error) {
                 case 0:
-                    System.out.println("Contrato registrado exitosamente");
-                    System.out.println("ID del contrato: " + id);
-                    break;
+                    return id;
+
                 case 1:
-                    System.out.println("Error al registrar contrato");
-                    break;
+                    return -1;
+
                 case 2:
-                    System.out.println("Datos invalidos del contrato");
-                    break;
+                    return -2;
             }
 
             cs.close();
 
         } catch (SQLException ex) {
             System.out.println("Error SQL: " + ex.getMessage());
+            return -1;
         }
+        return -1;
     }
 
-    public static void consultarContrato(int id) {
+    public static Contrato consultarContrato(int id) {
 
         try (Connection con = ConexionBD.getConnection()) {
 
@@ -64,13 +64,14 @@ public class ContratoDAO {
                 Contrato c = new Contrato(rs.getInt("id"), rs.getString("id_vivienda"),
                         rs.getInt("id_inquilino"), rs.getDouble("precio"), rs.getString("fecha_fin"),
                         rs.getString("fecha_inicio"), rs.getString("estado"));
-                System.out.println(c);
+                return c;
             } else {
-                System.out.println("No existe contrato con el ID: " + id);
+                return null;
             }
-            cs.close();
+
         } catch (SQLException e) {
             System.out.println("Error SQL: " + e.getMessage());
+            return null;
         }
     }
 
@@ -100,7 +101,7 @@ public class ContratoDAO {
         }
     }
 
-    public static void actualizarContrato(Contrato contrato) {
+    public static int actualizarContrato(Contrato contrato) {
 
         try (Connection con = ConexionBD.getConnection()) {
 
@@ -121,19 +122,21 @@ public class ContratoDAO {
 
             switch (error) {
                 case 0:
-                    System.out.println("Contrato actualizado exitosamente");
-                    break;
+                    return 0;
+
                 case 1:
-                    System.out.println("Error al actualizar contrato");
-                    break;
+                    return -1;
+
                 case 2:
-                    System.out.println("Datos invalidos del contrato");
-                    break;
+                    return -2;
+
             }
 
             cs.close();
         } catch (SQLException e) {
             System.out.println("Error SQL: " + e.getMessage());
+            return -1;
         }
+        return -1;
     }
 }
