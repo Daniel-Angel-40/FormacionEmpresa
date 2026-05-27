@@ -8,7 +8,7 @@ import java.sql.*;
 public class PropietarioDAO {
 
     // Funcion para insertar un propietario en la tabla Propietario
-    public static void insertarPropietario(Propietario propietario) {
+    public static int insertarPropietario(Propietario propietario) {
 
         // Inicio la conexion el try para que cuando termine cierre la conexion automaticamente
         try (Connection con = ConexionBD.getConnection()) {
@@ -38,19 +38,21 @@ public class PropietarioDAO {
             if (error == 0) {
                 System.out.println("Propietario insertado exitosamente");
                 System.out.println("ID: " + id);
+                return id;
             } else {
                 System.out.println("Error al insertar Propietario");
+                return -1;
             }
 
-            // Cierro el CallableStatment
-            cs.close();
+
         } catch (SQLException e) {
             System.err.println("Error SQL: " + e.getMessage());
+            return -1;
         }
     }
 
     // Funcion para consultar un propietario en la tabla Propietario
-    public static void consultarPropietario(int id) {
+    public static Propietario consultarPropietario(int id) {
 
         // Inicio la conexion el try para que cuando termine cierre la conexion automaticamente
         try (Connection con = ConexionBD.getConnection()) {
@@ -70,14 +72,16 @@ public class PropietarioDAO {
             if (rs.next()) {
                 Propietario propietario = new Propietario(rs.getInt("id"), rs.getString("DNI"),
                         rs.getString("nombre"), rs.getString("correo_electronico"), rs.getString("telefono"));
-                System.out.println(propietario);
+                return propietario;
             } else {
                 System.out.println("No existe un propietario con el ID: " + id);
+                return null;
             }
 
 
         } catch (SQLException e) {
             System.err.println("Error SQL: " + e.getMessage());
+            return null;
         }
     }
 
@@ -88,7 +92,7 @@ public class PropietarioDAO {
         try (Connection con = ConexionBD.getConnection()) {
 
             // Creacion de la sentencia sql
-            String sql = "{CALL sp_del_propietario(?,?,?)}";
+            String sql = "{CALL sp_del_propietario(?,?,?,?)}";
 
             // Inserto en CallableStatament la sentencia
             CallableStatement cs = con.prepareCall(sql);
@@ -125,7 +129,7 @@ public class PropietarioDAO {
     }
 
     // Funcion para actualizar un propietario en la tabla Propietario
-    public static void actualizarPropietario(Propietario propietario) {
+    public static int actualizarPropietario(Propietario propietario) {
 
         // Inicio la conexion el try para que cuando termine cierre la conexion automaticamente
         try(Connection con = ConexionBD.getConnection()) {
@@ -152,13 +156,14 @@ public class PropietarioDAO {
 
             // Compruebo que no haya error
             if (error == 0) {
-                System.out.println("Propietario actualizado exitosamente");
+                return 0;
             } else {
-                System.out.println("Error al actualizar Propietario");
+                return -1;
             }
 
         } catch (SQLException e) {
             System.err.println("Error SQL: " + e.getMessage());
+            return -1;
         }
     }
 }
