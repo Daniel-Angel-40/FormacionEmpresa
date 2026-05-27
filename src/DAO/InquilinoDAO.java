@@ -7,7 +7,7 @@ import java.sql.*;
 
 public class InquilinoDAO {
 
-    public static void insertarInquilino(Inquilino inquilino) {
+    public static int insertarInquilino(Inquilino inquilino) {
 
         try (Connection con = ConexionBD.getConnection()) {
 
@@ -29,18 +29,18 @@ public class InquilinoDAO {
             int id = cs.getInt(7);
 
             if (error == 0) {
-                System.out.println("Inquilino insertado correctamente");
-                System.out.println("ID: " + id);
+                return id;
             } else {
-                System.out.println("Error al insertar inquilino");
+                return -1;
             }
-            cs.close();
+
         } catch (SQLException e) {
             System.out.println("Error SQL: " + e.getMessage());
+            return -1;
         }
     }
 
-    public static void consultarInquilino(int id) {
+    public static Inquilino consultarInquilino(int id) {
 
         try (Connection con = ConexionBD.getConnection()) {
 
@@ -55,13 +55,14 @@ public class InquilinoDAO {
             if (rs.next()) {
                 Inquilino i = new Inquilino(rs.getInt("id"), rs.getString("DNI"), rs.getString("nombre"),
                         rs.getString("correo_electronico"), rs.getString("telefono"), rs.getBoolean("tiene_mascota"));
-                System.out.println(i);
+                return i;
             } else {
-                System.out.println("Error al consultar inquilino");
+                return null;
             }
-            cs.close();
+
         } catch (SQLException e) {
             System.out.println("Error SQL: " + e.getMessage());
+            return null;
         }
     }
 
@@ -95,7 +96,7 @@ public class InquilinoDAO {
         }
     }
 
-    public static void actualizarInquilino(Inquilino inquilino) {
+    public static int actualizarInquilino(Inquilino inquilino) {
 
         try(Connection con = ConexionBD.getConnection()) {
 
@@ -116,13 +117,14 @@ public class InquilinoDAO {
             int error = cs.getInt(7);
 
             if(error == 0) {
-                System.out.println("Inquilino actualizado correctamente");
+                return 0;
             } else {
-                System.out.println("Error al actualizar inquilino");
+               return -1;
             }
-            cs.close();
+
         } catch (SQLException e) {
             System.out.println("Error SQL: " + e.getMessage());
+            return -1;
         }
     }
 }
