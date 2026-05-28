@@ -4,6 +4,8 @@ import ConexionBD.ConexionBD;
 import Modelo.Contrato;
 import Modelo.Vivienda;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -97,5 +99,33 @@ public class EstadisticaDAO {
         }
 
         return listaContratos;
+    }
+
+    public static void viviendasLibresJson(){
+
+        try(Connection con = ConexionBD.getConnection()) {
+
+            String sql = "{CALL sp_get_viviendas_libres_JSON()}";
+
+            CallableStatement cs = con.prepareCall(sql);
+
+            ResultSet rs = cs.executeQuery();
+
+            if (rs.next()) {
+                String json = rs.getString("resultado");
+
+                String ruta = System.getProperty("user.home") + "/Descargas/";
+
+                FileWriter fw = new FileWriter(ruta + "viviendasLibres.json");
+                fw.write(json);
+                fw.close();
+            }
+
+            cs.close();
+        } catch (SQLException e) {
+            System.out.println("Error SQL: " + e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
