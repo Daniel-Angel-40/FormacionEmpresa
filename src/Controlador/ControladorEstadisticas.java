@@ -19,4 +19,8 @@ public class ControladorEstadisticas {
     public static ArrayList<Contrato> historicoInquilino(int idInquilino){
         return EstadisticaDAO.historicoInquilino(idInquilino);
     }
+
+    public static void viviendasLibresJson(){
+        EstadisticaDAO.viviendasLibresJson();
+    }
 }
