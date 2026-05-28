@@ -34,4 +34,8 @@ public class ControladorContrato {
 
         return ContratoDAO.actualizarestadoContrato(id, estado);
     }
+
+    public static void actualizacionAutomatica(){
+        ContratoDAO.actualizacionAutomatica();
+    }
 }
