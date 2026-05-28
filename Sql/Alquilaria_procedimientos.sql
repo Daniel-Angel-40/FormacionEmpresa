@@ -590,3 +590,38 @@ BEGIN
 
 END //
 DELIMITER ;
+
+
+
+-- Procedimientos para la exportacion en json de las consultas avanzadas -----------------------------------------------------------------------------------------------------------
+
+USE alquilaria_bd;
+DROP PROCEDURE IF EXISTS sp_get_viviendas_libres_JSON;
+DELIMITER //
+CREATE PROCEDURE sp_get_viviendas_libres_JSON()
+BEGIN
+
+	SET @v_json = json_object();
+
+	SELECT JSON_ARRAYAGG(
+    JSON_OBJECT(
+        'id', v.id,
+        'direccion', v.direccion,
+        'alquiler_mensual', v.alquiler_mensual,
+        'superficie', v.superficie,
+        'tipo', v.tipo,
+        'permite_mascota', v.permite_mascota
+    )
+	) AS resultado INTO @v_json
+	FROM vivienda v
+	LEFT JOIN contrato c ON v.id = c.id_vivienda AND c.estado = 'activo'
+	WHERE c.id IS NULL;
+
+	IF @v_json IS NULL THEN
+		SELECT JSON_OBJECT('error', 'sin resultados') AS resultado;
+	ELSE
+		SELECT @v_json AS resultado;
+    END IF;
+
+END //
+DELIMITER ;
