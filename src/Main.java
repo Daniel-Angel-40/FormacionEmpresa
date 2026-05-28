@@ -1,7 +1,4 @@
-import Vista.VistaContrato;
-import Vista.VistaInquilino;
-import Vista.VistaPropietario;
-import Vista.VistaVivienda;
+import Vista.*;
 
 import java.util.Scanner;
 
@@ -21,6 +18,7 @@ public class Main {
             System.out.println("║  2. Viviendas                    ║");
             System.out.println("║  3. Inquilinos                   ║");
             System.out.println("║  4. Contratos                    ║");
+            System.out.println("║  5. Estadísticas                 ║");
             System.out.println("║  0. Salir                        ║");
             System.out.println("╚══════════════════════════════════╝");
             System.out.print("Opción: ");
@@ -39,6 +37,9 @@ public class Main {
                     break;
                 case 4:
                     VistaContrato.menuContrato();
+                    break;
+                case 5:
+                    VistaEstadisticas.menuEstadisticas();
                     break;
                 case 0:
                     break;
