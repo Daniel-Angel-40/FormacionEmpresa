@@ -525,3 +525,52 @@ BEGIN
 END //
 DELIMITER ;
 
+
+
+
+
+-- Procedimientos con Consultas Avanzadas ----------------------------------------------------------------------------------------------------------------------------------------
+
+
+USE alquilaria_bd;
+DROP PROCEDURE IF EXISTS sp_get_historico_inquilino;
+DELIMITER //
+CREATE PROCEDURE sp_get_historico_inquilino(
+	IN p_id INT)
+BEGIN
+	SELECT c.id, c.id_vivienda, c.id_inquilino, c.fecha_inicio, c.fecha_fin, c.precio, c.estado, c.estado
+	FROM contrato c
+	JOIN vivienda v ON c.id_vivienda = v.id
+    JOIN inquilino i ON c.id_inquilino = i.id
+	WHERE c.id_inquilino = p_id
+	ORDER BY c.fecha_inicio DESC;
+END //
+DELIMITER ;
+
+CALL sp_get_historico_inquilino(5);
+
+
+USE alquilaria_bd;
+DROP PROCEDURE IF EXISTS sp_get_viviendas_activas;
+DELIMITER //
+CREATE PROCEDURE sp_get_viviendas_activas(
+	IN p_id INT)
+BEGIN
+	SELECT v.id_propietario, v.id, v.direccion, v.alquiler_mensual, v.superficie, v.descripcion, v.permite_mascota, v.tipo FROM vivienda v
+    JOIN propietario p ON v.id_propietario = p.id JOIN contrato c ON v.id = c.id_vivienda WHERE p.id = p_id AND c.estado = 'activo'; 
+END //
+DELIMITER ;
+
+
+
+USE alquilaria_bd;
+DROP PROCEDURE IF EXISTS sp_get_viviendas_libres;
+DELIMITER //
+CREATE PROCEDURE sp_get_viviendas_libres()
+BEGIN
+	SELECT v.id, v.direccion, v.alquiler_mensual, v.superficie, v.tipo, v.permite_mascota, v.id_propietario, v.descripcion
+	FROM vivienda v
+	LEFT JOIN contrato c ON v.id = c.id_vivienda AND c.estado = 'activo'
+	WHERE c.id IS NULL;
+END //
+DELIMITER ;
