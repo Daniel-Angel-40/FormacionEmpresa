@@ -171,4 +171,21 @@ public class ContratoDAO {
         }
         return -1;
     }
+
+    public static void actualizacionAutomatica(){
+
+        try(Connection con = ConexionBD.getConnection()) {
+
+            String sql = "{CALL sp_actualizacion_automatica()}";
+
+            CallableStatement cs = con.prepareCall(sql);
+
+            cs.execute();
+
+            cs.close();
+
+        }catch (SQLException e) {
+            System.out.println("Error SQL: " + e.getMessage());
+        }
+    }
 }
