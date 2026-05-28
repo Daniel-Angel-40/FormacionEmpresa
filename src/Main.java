@@ -1,3 +1,4 @@
+import DAO.ContratoDAO;
 import Vista.*;
 
 import java.util.Scanner;
@@ -8,6 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+        ContratoDAO.actualizacionAutomatica();
         int opcion;
 
         do {
