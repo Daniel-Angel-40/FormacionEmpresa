@@ -185,9 +185,13 @@ public class VistaContrato {
 
         System.out.println("Estado actual: " + c.getEstado());
 
-        System.out.println("Elige una opcion del 1-3(1/2/3)");
-        System.out.print("Nuevo estado (pendiente/activo/vencido): ");
+        System.out.println("Elige una opcion: \n1.Pendiente\n2.Activo\n3.Vencido");
+        System.out.print("Nuevo estado: ");
         int respuesta = sc.nextInt();
+        if (respuesta != 1 || respuesta != 2 || respuesta != 3) {
+            System.out.println("Opcion no valida");
+            return;
+        }
 
         int resultado = ControladorContrato.estado(id, respuesta);
 
