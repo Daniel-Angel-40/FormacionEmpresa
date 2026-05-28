@@ -574,3 +574,19 @@ BEGIN
 	WHERE c.id IS NULL;
 END //
 DELIMITER ;
+
+
+
+
+-- Procedimiento para la actualizacion de contratos ---------------------------------------------------------------------------------------------------------------------------
+
+USE alquilaria_bd;
+DROP PROCEDURE IF EXISTS sp_actualizacion_automatica;
+DELIMITER //
+CREATE PROCEDURE sp_actualizacion_automatica()
+BEGIN
+
+	UPDATE contrato SET estado = 'vencido' WHERE fecha_fin < CURDATE() AND estado != 'vencido';
+
+END //
+DELIMITER ;
