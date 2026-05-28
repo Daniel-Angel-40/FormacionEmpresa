@@ -55,6 +55,7 @@ public class VistaEstadisticas {
         System.out.println("\n── Viviendas libres ──");
 
         ArrayList<Vivienda> libres = ControladorEstadisticas.viviendasLibres();
+        ControladorEstadisticas.viviendasLibresJson();
 
         if (libres.isEmpty()) {
             System.out.println("No hay viviendas libres en este momento");
