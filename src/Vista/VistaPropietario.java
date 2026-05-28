@@ -109,24 +109,24 @@ public class VistaPropietario {
 
 
         System.out.print("DNI [" + actual.getDNI() + "]: " );
-        String DNI = sc.next().trim();
+        String DNI = sc.nextLine().trim();
         if (DNI.isBlank()){
             DNI = actual.getDNI();
         }
 
         System.out.print("Nombre [" + actual.getNombre() + "]: " );
-        String nombre = sc.next().trim();
+        String nombre = sc.nextLine().trim();
         if (nombre.isBlank()){
             nombre = actual.getNombre();
         }
         System.out.print("Correo [" + actual.getCorreo() + "]: " );
-        String correo = sc.next().trim();
+        String correo = sc.nextLine().trim();
         if (correo.isBlank()){
             correo = actual.getCorreo();
         }
 
         System.out.print("Telefono [" + actual.getTelefono() + "]: " );
-        String telefono = sc.next().trim();
+        String telefono = sc.nextLine().trim();
         if (telefono.isBlank()){
             telefono = actual.getTelefono();
         }
