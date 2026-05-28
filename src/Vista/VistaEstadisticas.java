@@ -55,7 +55,6 @@ public class VistaEstadisticas {
         System.out.println("\n── Viviendas libres ──");
 
         ArrayList<Vivienda> libres = ControladorEstadisticas.viviendasLibres();
-        ControladorEstadisticas.viviendasLibresJson();
 
         if (libres.isEmpty()) {
             System.out.println("No hay viviendas libres en este momento");
@@ -72,6 +71,13 @@ public class VistaEstadisticas {
             if (res.equalsIgnoreCase("n")) {
                 break;
             }
+        }
+
+        System.out.print("¿Quieres exportar la informacion a formato json?(S/n): ");
+        boolean respuesta = sc.nextLine().equalsIgnoreCase("s");
+
+        if (respuesta) {
+            ControladorEstadisticas.viviendasLibresJson();
         }
     }
 
