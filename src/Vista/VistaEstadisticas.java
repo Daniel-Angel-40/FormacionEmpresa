@@ -139,5 +139,12 @@ public class VistaEstadisticas {
                 break;
             }
         }
+
+        System.out.print("¿Quieres exportar la informacion a formato json?(S/n): ");
+        boolean respuesta = sc.nextLine().equalsIgnoreCase("s");
+
+        if (respuesta) {
+            ControladorEstadisticas.historicoInquilinoJson(id);
+        }
     }
 }
