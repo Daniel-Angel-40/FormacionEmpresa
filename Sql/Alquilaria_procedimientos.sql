@@ -547,7 +547,6 @@ BEGIN
 END //
 DELIMITER ;
 
-CALL sp_get_historico_inquilino(5);
 
 
 USE alquilaria_bd;
@@ -625,3 +624,41 @@ BEGIN
 
 END //
 DELIMITER ;
+
+
+
+
+USE alquilaria_bd;
+DROP PROCEDURE IF EXISTS sp_get_viviendas_activas_propietario_JSON;
+DELIMITER //
+CREATE PROCEDURE sp_get_viviendas_activas_propietario_JSON(
+	IN p_id INT)
+BEGIN
+	
+    SET @v_json = json_object();
+    
+    SELECT JSON_ARRAYAGG(
+    JSON_OBJECT(
+    'idVivienda', v.id, 
+    'idPropietario', v.id_propietario, 
+    'direccion', v.direccion, 
+    'alquilerMensual',v.alquiler_mensual, 
+    'superficie', v.superficie, 
+    'descripcion', v.descripcion, 
+    'permiteMascota', v.permite_mascota, 
+    'tipo', v.tipo
+		)
+    ) AS resultado INTO @v_json
+    FROM vivienda v
+    JOIN propietario p ON v.id_propietario = p.id JOIN contrato c ON v.id = c.id_vivienda WHERE p.id = p_id AND c.estado = 'activo'; 
+    
+    IF @v_json IS NULL THEN
+		SELECT JSON_OBJECT('error', 'sin resultados') AS resultado;
+	ELSE
+		SELECT @v_json AS resultado;
+    END IF;
+    
+END //
+DELIMITER ;
+
+
