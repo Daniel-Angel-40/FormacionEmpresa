@@ -160,5 +160,12 @@ public class VistaEstadisticas {
         if (respuesta) {
             ControladorEstadisticas.historicoInquilinoJson(id);
         }
+
+        System.out.print("¿Quieres exportar la informacion a formato Csv?(S/n): ");
+        respuesta = sc.nextLine().equalsIgnoreCase("s");
+
+        if (respuesta) {
+            ControladorEstadisticas.historicoInquilinoCsv(id);
+        }
     }
 }
