@@ -120,6 +120,13 @@ public class VistaEstadisticas {
         if (respuesta) {
             ControladorEstadisticas.viviendasActivasPropietarioJson(id);
         }
+
+        System.out.print("¿Quieres exportar la informacion a formato Csv?(S/n): ");
+        respuesta = sc.nextLine().equalsIgnoreCase("s");
+
+        if (respuesta) {
+            ControladorEstadisticas.viviendasActivasPropietarioCsv(id);
+        }
     }
 
     private static void historicoInquilino() {
