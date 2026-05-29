@@ -31,4 +31,8 @@ public class ControladorEstadisticas {
     public static void historicoInquilinoJson(int idInquilino){
         EstadisticaDAO.historicoInquilinoJson(idInquilino);
     }
+
+    public static void viviendasLibresCsv(){
+        EstadisticaDAO.viviendasLibresCsv();
+    }
 }
