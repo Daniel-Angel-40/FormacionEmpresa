@@ -67,8 +67,8 @@ public class VistaEstadisticas {
             System.out.println(v);
             System.out.print("¿Mostrar siguiente?(S/n): ");
             sc.nextLine();
-            String res = sc.nextLine();
-            if (res.equalsIgnoreCase("n")) {
+            boolean res = sc.nextLine().equalsIgnoreCase("n");
+            if (res) {
                 break;
             }
         }
@@ -108,8 +108,8 @@ public class VistaEstadisticas {
             System.out.println(v);
             System.out.print("¿Mostrar siguiente?(S/n): ");
             sc.nextLine();
-            String res = sc.nextLine();
-            if (res.equalsIgnoreCase("n")) {
+            boolean res = sc.nextLine().equalsIgnoreCase("n");
+            if (res) {
                 break;
             }
         }
@@ -141,8 +141,8 @@ public class VistaEstadisticas {
             System.out.println(c);
             System.out.print("¿Mostrar siguiente?(S/n): ");
             sc.nextLine();
-            String res = sc.nextLine();
-            if (res.equalsIgnoreCase("n")) {
+            boolean res = sc.nextLine().equalsIgnoreCase("n");
+            if (res) {
                 break;
             }
         }
