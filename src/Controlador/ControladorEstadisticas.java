@@ -35,4 +35,8 @@ public class ControladorEstadisticas {
     public static void viviendasLibresCsv(){
         EstadisticaDAO.viviendasLibresCsv();
     }
+
+    public static void viviendasActivasPropietarioCsv(int idPropietario){
+        EstadisticaDAO.viviendasActivasPropietarioCsv(idPropietario);
+    }
 }
