@@ -23,4 +23,8 @@ public class ControladorEstadisticas {
     public static void viviendasLibresJson(){
         EstadisticaDAO.viviendasLibresJson();
     }
+
+    public static void viviendasActivasPropietarioJson(int idPropietario){
+        EstadisticaDAO.viviendasActivasPropietarioJson(idPropietario);
+    }
 }
