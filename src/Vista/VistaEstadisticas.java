@@ -79,6 +79,13 @@ public class VistaEstadisticas {
         if (respuesta) {
             ControladorEstadisticas.viviendasLibresJson();
         }
+
+        System.out.print("¿Quieres exportar la informacion a formato CSV?(S/n): ");
+        respuesta = sc.nextLine().equalsIgnoreCase("s");
+
+        if (respuesta) {
+            ControladorEstadisticas.viviendasLibresCsv();
+        }
     }
 
     private static void viviendasActivasPropietario() {
