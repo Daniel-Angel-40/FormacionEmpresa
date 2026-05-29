@@ -538,7 +538,7 @@ DELIMITER //
 CREATE PROCEDURE sp_get_historico_inquilino(
 	IN p_id INT)
 BEGIN
-	SELECT c.id, c.id_vivienda, c.id_inquilino, c.fecha_inicio, c.fecha_fin, c.precio, c.estado, c.estado
+	SELECT c.id, c.id_vivienda, c.id_inquilino, c.fecha_inicio, c.fecha_fin, c.precio, c.estado
 	FROM contrato c
 	JOIN vivienda v ON c.id_vivienda = v.id
     JOIN inquilino i ON c.id_inquilino = i.id
@@ -661,4 +661,39 @@ BEGIN
 END //
 DELIMITER ;
 
+
+USE alquilaria_bd;
+DROP PROCEDURE IF EXISTS sp_get_historico_inquilino_JSON;
+DELIMITER //
+CREATE PROCEDURE sp_get_historico_inquilino_JSON(
+	IN p_id INT)
+BEGIN
+
+	SET @v_json = json_object();
+
+	SELECT JSON_ARRAYAGG(
+    JSON_OBJECT(
+		'idContrato', c.id, 
+        'idVivienda', c.id_vivienda, 
+        'idInquilino', c.id_inquilino, 
+        'fechaInicio', c.fecha_inicio, 
+        'fechaFin', c.fecha_fin, 
+        'precio', c.precio, 
+        'estado', c.estado 
+		)
+    ) AS resultado INTO @v_json
+    FROM contrato c
+	JOIN vivienda v ON c.id_vivienda = v.id
+    JOIN inquilino i ON c.id_inquilino = i.id
+	WHERE c.id_inquilino = p_id
+	ORDER BY c.fecha_inicio DESC;
+
+	IF @v_json IS NULL THEN
+		SELECT JSON_OBJECT('error', 'sin resultados') AS resultado;
+	ELSE
+		SELECT @v_json AS resultado;
+    END IF;
+
+END //
+DELIMITER ;
 
