@@ -6,6 +6,7 @@ import Modelo.Vivienda;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -74,7 +75,7 @@ public class EstadisticaDAO {
 
         ArrayList<Contrato> listaContratos = new ArrayList<>();
 
-        try(Connection con = ConexionBD.getConnection()) {
+        try (Connection con = ConexionBD.getConnection()) {
 
             String sql = "{CALL sp_get_historico_inquilino(?)}";
 
@@ -101,9 +102,9 @@ public class EstadisticaDAO {
         return listaContratos;
     }
 
-    public static void viviendasLibresJson(){
+    public static void viviendasLibresJson() {
 
-        try(Connection con = ConexionBD.getConnection()) {
+        try (Connection con = ConexionBD.getConnection()) {
 
             String sql = "{CALL sp_get_viviendas_libres_JSON()}";
 
@@ -129,9 +130,9 @@ public class EstadisticaDAO {
         }
     }
 
-    public static void viviendasActivasPropietarioJson(int idPropietario){
+    public static void viviendasActivasPropietarioJson(int idPropietario) {
 
-        try(Connection con = ConexionBD.getConnection()) {
+        try (Connection con = ConexionBD.getConnection()) {
 
             String sql = "{CALL sp_get_viviendas_activas_propietario_JSON(?)}";
 
@@ -159,10 +160,10 @@ public class EstadisticaDAO {
         }
     }
 
-    public static void historicoInquilinoJson(int idInquilino){
+    public static void historicoInquilinoJson(int idInquilino) {
 
 
-        try(Connection con = ConexionBD.getConnection()) {
+        try (Connection con = ConexionBD.getConnection()) {
 
             String sql = "{CALL sp_get_historico_inquilino_JSON(?)}";
 
@@ -185,6 +186,30 @@ public class EstadisticaDAO {
             cs.close();
         } catch (SQLException e) {
             System.out.println("Error SQL: " + e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void viviendasLibresCsv() {
+
+        String ruta = System.getProperty("user.home") + "/Descargas/";
+
+        try (PrintWriter pw = new PrintWriter(ruta + "viviendasLibresCsv.csv")) {
+            var lista = EstadisticaDAO.viviendasLibres();
+            pw.println("id, idPropietario, direccion, alquiler_mensual, superficie, descripcion, permiteMascota, tipo");
+
+            for (Vivienda v : lista) {
+                pw.println("\"" + v.getId() + "\"," +
+                        "\"" + v.getPropietario() + "\"," +
+                        "\"" + v.getDireccion() + "\"," +
+                        v.getAlquiler_mensual() + "," +
+                        v.getSuperficie() + "," +
+                        "\"" + v.getDescripcion() + "\"," +
+                        "\"" + v.isPermite_mascota() + "\"," +
+                        v.getTipo());
+            }
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
