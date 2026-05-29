@@ -128,4 +128,34 @@ public class EstadisticaDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public static void viviendasActivasPropietarioJson(int idPropietario){
+
+        try(Connection con = ConexionBD.getConnection()) {
+
+            String sql = "{CALL sp_get_viviendas_activas_propietario_JSON(?)}";
+
+            CallableStatement cs = con.prepareCall(sql);
+
+            cs.setInt(1, idPropietario);
+
+            ResultSet rs = cs.executeQuery();
+
+            if (rs.next()) {
+                String json = rs.getString("resultado");
+
+                String ruta = System.getProperty("user.home") + "/Descargas/";
+
+                FileWriter fw = new FileWriter(ruta + "viviendasActivasPropietario.json");
+                fw.write(json);
+                fw.close();
+            }
+
+            cs.close();
+        } catch (SQLException e) {
+            System.out.println("Error SQL: " + e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
