@@ -214,4 +214,30 @@ public class EstadisticaDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public static void viviendasActivasPropietarioCsv(int idPropietario){
+
+        String ruta = System.getProperty("user.home") + "/Descargas/";
+
+        try(PrintWriter pw = new PrintWriter(ruta + "viviendasActivasPropietarioCsv.csv")) {
+
+            var lista = EstadisticaDAO.viviendasActivasPropietario(idPropietario);
+
+            pw.println("id, idPropietario, direccion, alquiler_mensual, superficie, descripcion, permiteMascota, tipo");
+
+            for (Vivienda v : lista) {
+                pw.println("\"" + v.getId() + "\"," +
+                        "\"" + v.getPropietario() + "\"," +
+                        "\"" + v.getDireccion() + "\"," +
+                        v.getAlquiler_mensual() + "," +
+                        v.getSuperficie() + "," +
+                        "\"" + v.getDescripcion() + "\"," +
+                        "\"" + v.isPermite_mascota() + "\"," +
+                        v.getTipo());
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
