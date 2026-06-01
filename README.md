@@ -59,6 +59,7 @@ Alquilaria/
 │   ├── Alquilaria_crea.sql
 │   ├── Alquilaria_carga.sql
 │   └── Alquilaria_procedimientos.sql
+│    └── Alquilaria_triggers.sql
 └── README.md
 ```
 
