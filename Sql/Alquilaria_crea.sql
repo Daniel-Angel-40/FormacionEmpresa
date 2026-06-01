@@ -42,7 +42,7 @@ tiene_mascota BOOL NOT NULL
 );
 
 
--- Creacion de la tabla Contrata
+-- Creacion de la tabla Contrato
 CREATE TABLE contrato (
 id INT AUTO_INCREMENT PRIMARY KEY,
 id_vivienda VARCHAR(10) NOT NULL,
@@ -56,6 +56,22 @@ CONSTRAINT ck_contrata_fecha CHECK(fecha_fin > fecha_inicio),
 CONSTRAINT ck_contrata_estado CHECK(estado IN('pendiente', 'activo', 'vencido')),
 CONSTRAINT fk_contrata_vivienda FOREIGN KEY(id_vivienda) REFERENCES vivienda(id),
 CONSTRAINT fk_contrata_inquilino FOREIGN KEY(id_inquilino) REFERENCES inquilino(id)
+);
+
+
+
+-- Creacion de la tabla historico de contrato
+CREATE TABLE contrato_history (
+id INT AUTO_INCREMENT PRIMARY KEY,
+id_contrato INT,
+id_vivienda VARCHAR(10),
+id_inquilino INT,
+fecha_inicio DATE,
+fecha_fin DATE,
+precio DECIMAL(10,2),
+estado VARCHAR(10),
+log_cambio VARCHAR(10),
+log_ultima_modificacion DATETIME DEFAULT NOW()
 );
 
 
