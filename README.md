@@ -12,13 +12,13 @@ Alquilaria allows a real estate rental company to manage all its operational dat
 
 ## Technology Stack
 
-| Component | Technology               |
-|---|--------------------------|
-| Language | Java (JDK 23)            |
-| Database | MySQL 8+ (InnoDB)        |
-| DB Connectivity | JDBC                     |
-| IDE | IntelliJ IDEA / NetBeans |
-| Testing | JUnit 5                  |
+| Component | Technology            |
+|---|-----------------------|
+| Language | Java (JDK 23)         |
+| Database | MySQL 8+ (InnoDB)     |
+| DB Connectivity | JDBC                  |
+| IDE | IntelliJ IDEA |
+| Testing | JUnit 5               |
 
 ---
 
@@ -58,8 +58,8 @@ Alquilaria/
 ├── sql/
 │   ├── Alquilaria_crea.sql
 │   ├── Alquilaria_carga.sql
-│   └── Alquilaria_procedimientos.sql
-│    └── Alquilaria_triggers.sql
+│   ├── Alquilaria_procedimientos.sql
+│   └── Alquilaria_triggers.sql
 └── README.md
 ```
 
