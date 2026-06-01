@@ -1,0 +1,17 @@
+Propietario(id, DNI, nombre, correo, telefono)
+PK: id
+
+
+Vivienda(id, id_propietario, direccion, alquiler_mensual, superficie, descripcion, permite_mascota, tipo)
+PK: id
+FK: id_propietario -> Propietario
+
+
+Inquilino(id, DNI, correo, telefono, tiene_mascota)
+PK: id
+
+
+Contrato(id, id_vivienda, id_inquilino, fecha_inicio, fecha_fin, precio, estado)
+PK: id
+FK: id_vivienda -> Vivienda
+FK: id_inquilino -> Inquilino
