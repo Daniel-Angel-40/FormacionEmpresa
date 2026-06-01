@@ -54,21 +54,21 @@ public class VistaEstadisticas {
 
         System.out.println("\n── Viviendas libres ──");
 
-        ArrayList<Vivienda> libres = ControladorEstadisticas.viviendasLibres();
+        ArrayList<Vivienda> viviendasLibres = ControladorEstadisticas.viviendasLibres();
 
-        if (libres.isEmpty()) {
+        if (viviendasLibres.isEmpty()) {
             System.out.println("No hay viviendas libres en este momento");
             return;
         }
 
-        System.out.println("Total de viviendas libres: " + libres.size());
+        System.out.println("Total de viviendas libres: " + viviendasLibres.size());
 
-        for (Vivienda v : libres) {
-            System.out.println(v);
+        for (Vivienda vivienda : viviendasLibres) {
+            System.out.println(vivienda);
             System.out.print("¿Mostrar siguiente?(S/n): ");
             sc.nextLine();
-            boolean res = sc.nextLine().equalsIgnoreCase("n");
-            if (res) {
+            boolean respuesta = sc.nextLine().equalsIgnoreCase("n");
+            if (respuesta) {
                 break;
             }
         }
@@ -93,23 +93,23 @@ public class VistaEstadisticas {
         System.out.println("\n── Viviendas activas de propietario ──");
         System.out.print("ID del propietario: ");
 
-        int id = sc.nextInt();
+        int idPropietario = sc.nextInt();
 
-        ArrayList<Vivienda> lista = ControladorEstadisticas.viviendasActivasPropietario(id);
+        ArrayList<Vivienda> viviendasActivas = ControladorEstadisticas.viviendasActivasPropietario(idPropietario);
 
-        if (lista.isEmpty()) {
-            System.out.println("El propietario con ID " + id + " no tiene viviendas con contrato activo");
+        if (viviendasActivas.isEmpty()) {
+            System.out.println("El propietario con ID " + idPropietario + " no tiene viviendas con contrato activo");
             return;
         }
 
-        System.out.println("\nViviendas en alquiler activo: " + lista.size());
+        System.out.println("\nViviendas en alquiler activo: " + viviendasActivas.size());
 
-        for (Vivienda v : lista) {
-            System.out.println(v);
+        for (Vivienda vivienda : viviendasActivas) {
+            System.out.println(vivienda);
             System.out.print("¿Mostrar siguiente?(S/n): ");
             sc.nextLine();
-            boolean res = sc.nextLine().equalsIgnoreCase("n");
-            if (res) {
+            boolean respuesta = sc.nextLine().equalsIgnoreCase("n");
+            if (respuesta) {
                 break;
             }
         }
@@ -118,14 +118,14 @@ public class VistaEstadisticas {
         boolean respuesta = sc.nextLine().equalsIgnoreCase("s");
 
         if (respuesta) {
-            ControladorEstadisticas.viviendasActivasPropietarioJson(id);
+            ControladorEstadisticas.viviendasActivasPropietarioJson(idPropietario);
         }
 
         System.out.print("¿Quieres exportar la informacion a formato Csv?(S/n): ");
         respuesta = sc.nextLine().equalsIgnoreCase("s");
 
         if (respuesta) {
-            ControladorEstadisticas.viviendasActivasPropietarioCsv(id);
+            ControladorEstadisticas.viviendasActivasPropietarioCsv(idPropietario);
         }
     }
 
@@ -133,23 +133,23 @@ public class VistaEstadisticas {
 
         System.out.println("\n── Histórico de inquilino ──");
         System.out.print("ID del inquilino: ");
-        int id = sc.nextInt();
+        int idInquilino = sc.nextInt();
 
-        ArrayList<Contrato> lista = EstadisticaDAO.historicoInquilino(id);
+        ArrayList<Contrato> contratosInquilino = EstadisticaDAO.historicoInquilino(idInquilino);
 
-        if (lista.isEmpty()) {
-            System.out.println("No se encontraron contratos para el inquilino con ID: " + id);
+        if (contratosInquilino.isEmpty()) {
+            System.out.println("No se encontraron contratos para el inquilino con ID: " + idInquilino);
             return;
         }
 
-        System.out.println("\nTotal de contratos: " + lista.size());
+        System.out.println("\nTotal de contratos: " + contratosInquilino.size());
 
-        for (Contrato c : lista) {
-            System.out.println(c);
+        for (Contrato contrato : contratosInquilino) {
+            System.out.println(contrato);
             System.out.print("¿Mostrar siguiente?(S/n): ");
             sc.nextLine();
-            boolean res = sc.nextLine().equalsIgnoreCase("n");
-            if (res) {
+            boolean respuesta = sc.nextLine().equalsIgnoreCase("n");
+            if (respuesta) {
                 break;
             }
         }
@@ -158,14 +158,14 @@ public class VistaEstadisticas {
         boolean respuesta = sc.nextLine().equalsIgnoreCase("s");
 
         if (respuesta) {
-            ControladorEstadisticas.historicoInquilinoJson(id);
+            ControladorEstadisticas.historicoInquilinoJson(idInquilino);
         }
 
         System.out.print("¿Quieres exportar la informacion a formato Csv?(S/n): ");
         respuesta = sc.nextLine().equalsIgnoreCase("s");
 
         if (respuesta) {
-            ControladorEstadisticas.historicoInquilinoCsv(id);
+            ControladorEstadisticas.historicoInquilinoCsv(idInquilino);
         }
     }
 }

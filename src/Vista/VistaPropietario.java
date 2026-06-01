@@ -82,14 +82,14 @@ public class VistaPropietario {
 
         System.out.println("\n── Consultar propietario ──");
         System.out.print("ID: ");
-        int id = sc.nextInt();
+        int idPropietario = sc.nextInt();
 
-        Propietario p =  ControladorPropietario.consultar(id);
+        Propietario propietario =  ControladorPropietario.consultar(idPropietario);
 
-        if (p != null) {
-            System.out.println(p);
+        if (propietario != null) {
+            System.out.println(propietario);
         } else {
-            System.out.println("No existe Propietario con el ID: " + id);
+            System.out.println("No existe Propietario con el ID: " + idPropietario);
         }
 
     }
@@ -98,12 +98,12 @@ public class VistaPropietario {
 
         System.out.println("\n── Modificar propietario ──");
         System.out.print("ID del propietario a modificar: ");
-        int id = sc.nextInt();
+        int idPropietario = sc.nextInt();
 
-        Propietario actual = ControladorPropietario.consultar(id);
+        Propietario actual = ControladorPropietario.consultar(idPropietario);
 
         if (actual == null) {
-            System.out.println("No existe un propietario con el ID: " + id);
+            System.out.println("No existe un propietario con el ID: " + idPropietario);
             return;
         }
 
@@ -131,7 +131,7 @@ public class VistaPropietario {
             telefono = actual.getTelefono();
         }
 
-        int respuesta = ControladorPropietario.actualizar(id, DNI, nombre, correo, telefono);
+        int respuesta = ControladorPropietario.actualizar(idPropietario, DNI, nombre, correo, telefono);
 
         if (respuesta == 0) {
             System.out.println("Propietario modificado exitosamente");
@@ -144,22 +144,22 @@ public class VistaPropietario {
 
         System.out.println("\n── Eliminar propietario ──");
         System.out.print("ID del propietario eliminar: ");
-        int id = sc.nextInt();
+        int idPropietario = sc.nextInt();
 
-        Propietario p = ControladorPropietario.consultar(id);
-        if (p == null) {
+        Propietario propietario = ControladorPropietario.consultar(idPropietario);
+        if (propietario == null) {
             return;
         }
 
         System.out.print("Esta accion eliminara tambien sus viviendas y contratos asocidaso. ¿Confirmar?(S/n): ");
-        String confirmar = sc.next().trim();
+        String respuesta = sc.next().trim();
 
-        if (!confirmar.equalsIgnoreCase("s")) {
+        if (!respuesta.equalsIgnoreCase("s")) {
             System.out.println("Operacion cancelada");
             return;
         }
 
-        ControladorPropietario.eliminar(id);
+        ControladorPropietario.eliminar(idPropietario);
     }
 
 }

@@ -72,9 +72,9 @@ public class VistaInquilino {
         String telefono = sc.nextLine().trim();
 
         System.out.print("¿Tiene mascota? (S/n): ");
-        boolean mascota = sc.nextLine().trim().equalsIgnoreCase("s");
+        boolean tieneMascota = sc.nextLine().trim().equalsIgnoreCase("s");
 
-        int id = ControladorInquilino.insertar(DNI, nombre, correo, telefono, mascota);
+        int id = ControladorInquilino.insertar(DNI, nombre, correo, telefono, tieneMascota);
 
         if (id != -1) {
             System.out.println("Inquilino insertado exitosamente");
@@ -86,14 +86,14 @@ public class VistaInquilino {
 
         System.out.println("\n── Consultar inquilino ──");
         System.out.print("ID: ");
-        int id = sc.nextInt();
+        int idInquilino = sc.nextInt();
 
-        Inquilino i = ControladorInquilino.consultar(id);
+        Inquilino inquilino = ControladorInquilino.consultar(idInquilino);
 
-        if (i != null) {
-            System.out.println(i);
+        if (inquilino != null) {
+            System.out.println(inquilino);
         } else {
-            System.out.println("No existe un inquilino con el ID: " + id);
+            System.out.println("No existe un inquilino con el ID: " + idInquilino);
         }
 
     }
@@ -102,12 +102,12 @@ public class VistaInquilino {
 
         System.out.println("\n── Modificar inquilino ──");
         System.out.print("ID del inquilino a modificar: ");
-        int id = sc.nextInt();
+        int idInquilino = sc.nextInt();
 
-        Inquilino actual = ControladorInquilino.consultar(id);
+        Inquilino actual = ControladorInquilino.consultar(idInquilino);
 
         if (actual == null) {
-            System.out.println("No existe un inquilino con el ID: " + id);
+            System.out.println("No existe un inquilino con el ID: " + idInquilino);
             return;
         }
 
@@ -125,9 +125,9 @@ public class VistaInquilino {
         String telefono = sc.nextLine().trim();
 
         System.out.print("¿Tiene mascota?(S/n) [" + actual.isTiene_mascota() + "]: ");
-        boolean mascota = sc.nextLine().trim().equalsIgnoreCase("s");
+        boolean tieneMascota = sc.nextLine().trim().equalsIgnoreCase("s");
 
-        int respuesta = ControladorInquilino.actualizar(id, DNI, nombre, correo, telefono, mascota);
+        int respuesta = ControladorInquilino.actualizar(idInquilino, DNI, nombre, correo, telefono, tieneMascota);
 
         if (respuesta == 0) {
             System.out.println("Inquilino actualizado exitosamente");
@@ -140,12 +140,12 @@ public class VistaInquilino {
 
         System.out.println("\n── Eliminar inquilino ──");
         System.out.print("ID del inquilino a eliminar: ");
-        int id = sc.nextInt();
+        int idInquilino = sc.nextInt();
 
-        Inquilino i = ControladorInquilino.consultar(id);
+        Inquilino inquilino = ControladorInquilino.consultar(idInquilino);
 
-        if (i == null) {
-            System.out.println("No existe un inquilino con el ID: " + id);
+        if (inquilino == null) {
+            System.out.println("No existe un inquilino con el ID: " + idInquilino);
             return;
         }
 
@@ -158,6 +158,6 @@ public class VistaInquilino {
             return;
         }
 
-        ControladorInquilino.eliminar(id);
+        ControladorInquilino.eliminar(idInquilino);
     }
 }

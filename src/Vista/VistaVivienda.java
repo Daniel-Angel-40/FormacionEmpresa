@@ -55,7 +55,7 @@ public class VistaVivienda {
         System.out.println("\n── Añadir vivienda ──");
 
         System.out.print("ID (alfanumerico): ");
-        String id = sc.nextLine().trim();
+        String idVivienda = sc.nextLine().trim();
 
         System.out.print("ID propietario: ");
         int idPropietario = sc.nextInt();
@@ -84,7 +84,7 @@ public class VistaVivienda {
         System.out.print("Tipo (apartamento/atico/casa): ");
         String tipo = sc.nextLine().trim().toLowerCase();
 
-        int resultado = ControladorVivienda.insertar(id, idPropietario, direccion, alquilerMensual, superficie, descripcion, mascota, tipo);
+        int resultado = ControladorVivienda.insertar(idVivienda, idPropietario, direccion, alquilerMensual, superficie, descripcion, mascota, tipo);
 
         switch (resultado) {
             case 0:
@@ -104,14 +104,14 @@ public class VistaVivienda {
         sc.nextLine();
         System.out.println("\n── Consultar vivienda ──");
         System.out.print("ID de la vivienda: ");
-        String id = sc.nextLine().trim();
+        String idVivienda = sc.nextLine().trim();
 
-        Vivienda v = ControladorVivienda.consultar(id);
+        Vivienda vivienda = ControladorVivienda.consultar(idVivienda);
 
-        if (v != null) {
-            System.out.println(v);
+        if (vivienda != null) {
+            System.out.println(vivienda);
         } else {
-            System.out.println("No existe una vivienda con el ID: " + id);
+            System.out.println("No existe una vivienda con el ID: " + idVivienda);
         }
     }
 
@@ -122,12 +122,12 @@ public class VistaVivienda {
 
         System.out.println("\n── Modificar vivienda ──");
         System.out.print("ID de la vivienda a modificar: ");
-        String id = sc.nextLine().trim();
+        String idVivienda = sc.nextLine().trim();
 
-        Vivienda actual = ControladorVivienda.consultar(id);
+        Vivienda actual = ControladorVivienda.consultar(idVivienda);
 
         if (actual == null) {
-            System.out.println("No existe una vivienda con el ID: " + id);
+            System.out.println("No existe una vivienda con el ID: " + idVivienda);
             return;
         }
 
@@ -158,7 +158,7 @@ public class VistaVivienda {
         System.out.print("Tipo [" + actual.getTipo() + "]: ");
         String tipo = sc.nextLine().trim();
 
-        int resultado = ControladorVivienda.modificar(id,idPropietario, direccion,
+        int resultado = ControladorVivienda.modificar(idVivienda,idPropietario, direccion,
                 alquilerMensual, superficie, descripcion, mascota, tipo);
 
         switch (resultado) {
@@ -179,7 +179,7 @@ public class VistaVivienda {
         sc.nextLine();
         System.out.println("\n── Eliminar vivienda ──");
         System.out.print("ID de la vivienda a eliminar: ");
-        String id = sc.nextLine().trim();
+        String idVivienda = sc.nextLine().trim();
 
         System.out.print("Esta accion eliminara tambien sus contratos. ¿Confirmar? (S/n): ");
         String respuesta = sc.nextLine().trim();
@@ -189,6 +189,6 @@ public class VistaVivienda {
             return;
         }
 
-        ControladorVivienda.eliminar(id);
+        ControladorVivienda.eliminar(idVivienda);
     }
 }

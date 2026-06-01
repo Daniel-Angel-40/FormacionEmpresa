@@ -74,14 +74,14 @@ public class VistaContrato {
         System.out.println("Fecha fin (AAAA-MM-DD): ");
         String fechaFin = sc.nextLine().trim();
 
-        int id = ControladorContrato.insertar(idVivienda, idInquilino, precio, fechaInicio, fechaFin);
+        int ultimoIdInsertado = ControladorContrato.insertar(idVivienda, idInquilino, precio, fechaInicio, fechaFin);
 
-        if (id != -1 || id != -2) {
+        if (ultimoIdInsertado != -1 || ultimoIdInsertado != -2) {
             System.out.println("Contrato insertado con exito");
-            System.out.println("ID asignado: " + id);
-        } else if (id == -1) {
+            System.out.println("ID asignado: " + ultimoIdInsertado);
+        } else if (ultimoIdInsertado == -1) {
             System.out.println("Error al insertar el contrato");
-        } else if (id == -2) {
+        } else if (ultimoIdInsertado == -2) {
             System.out.println("Datos invalidos del contrato");
         }
     }
@@ -91,14 +91,14 @@ public class VistaContrato {
         System.out.println("\n── Consultar contrato ──");
         System.out.print("ID: ");
 
-        int id = sc.nextInt();
+        int idContrato = sc.nextInt();
 
-        Contrato c = ControladorContrato.consultar(id);
+        Contrato contrato = ControladorContrato.consultar(idContrato);
 
-        if (c != null) {
-            System.out.println(c);
+        if (contrato != null) {
+            System.out.println(contrato);
         } else {
-            System.out.println("No existe el contrato con el ID: " + id);
+            System.out.println("No existe el contrato con el ID: " + idContrato);
         }
     }
 
@@ -106,12 +106,12 @@ public class VistaContrato {
 
         System.out.println("\n── Modificar contrato ──");
         System.out.print("ID del contrato a modificar: ");
-        int id = sc.nextInt();
+        int idContrato = sc.nextInt();
 
-        Contrato actual = ControladorContrato.consultar(id);
+        Contrato actual = ControladorContrato.consultar(idContrato);
 
         if (actual == null) {
-            System.out.println("No existe el contrato con el ID: " + id);
+            System.out.println("No existe el contrato con el ID: " + idContrato);
             return;
         }
 
@@ -129,7 +129,7 @@ public class VistaContrato {
         System.out.print("Estado [" + actual.getEstado() + "]: ");
         String estado = sc.nextLine().trim().toLowerCase();
 
-        int resultado = ControladorContrato.actualizar(id, fechaInicio, fechaFin, precio, estado);
+        int resultado = ControladorContrato.actualizar(idContrato, fechaInicio, fechaFin, precio, estado);
 
         switch (resultado) {
             case 0:
@@ -148,12 +148,12 @@ public class VistaContrato {
 
         System.out.println("\n── Eliminar contrato ──");
         System.out.print("ID del contrato a eliminar: ");
-        int id = sc.nextInt();
+        int idContrato = sc.nextInt();
 
-        Contrato c = ControladorContrato.consultar(id);
+        Contrato contrato = ControladorContrato.consultar(idContrato);
 
-        if (c == null) {
-            System.out.println("No existe el contrato con el ID: " + id);
+        if (contrato == null) {
+            System.out.println("No existe el contrato con el ID: " + idContrato);
             return;
         }
 
@@ -166,7 +166,7 @@ public class VistaContrato {
             return;
         }
 
-        ControladorContrato.eliminar(id);
+        ControladorContrato.eliminar(idContrato);
     }
 
     private static void cambiarEstadoContrato() {
@@ -174,26 +174,26 @@ public class VistaContrato {
         System.out.println("\n── Cambiar estado del contrato ──");
         System.out.print("ID del contrato: ");
 
-        int id = sc.nextInt();
+        int idContrato = sc.nextInt();
 
-        Contrato c = ControladorContrato.consultar(id);
+        Contrato contrato = ControladorContrato.consultar(idContrato);
 
-        if (c == null) {
-            System.out.println("No existe el contrato con el ID: " + id);
+        if (contrato == null) {
+            System.out.println("No existe el contrato con el ID: " + idContrato);
             return;
         }
 
-        System.out.println("Estado actual: " + c.getEstado());
+        System.out.println("Estado actual: " + contrato.getEstado());
 
         System.out.println("Elige una opcion: \n1.Pendiente\n2.Activo\n3.Vencido");
         System.out.print("Nuevo estado: ");
-        int respuesta = sc.nextInt();
-        if (respuesta != 1 || respuesta != 2 || respuesta != 3) {
+        int nuevoEstado = sc.nextInt();
+        if (nuevoEstado != 1 || nuevoEstado != 2 || nuevoEstado != 3) {
             System.out.println("Opcion no valida");
             return;
         }
 
-        int resultado = ControladorContrato.estado(id, respuesta);
+        int resultado = ControladorContrato.estado(idContrato, nuevoEstado);
 
         switch (resultado) {
             case 0:
