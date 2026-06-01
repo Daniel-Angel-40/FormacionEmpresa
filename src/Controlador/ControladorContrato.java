@@ -8,34 +8,34 @@ public class ControladorContrato {
 
     public static int insertar(String idVivienda, int idInquilino, double precio, String fechaInicio, String fechaFin) {
 
-        Contrato c = new Contrato(idVivienda, idInquilino, precio, fechaFin,  fechaInicio);
+        Contrato contrato = new Contrato(idVivienda, idInquilino, precio, fechaFin, fechaInicio);
 
-        return ContratoDAO.insertarContrato(c);
+        return ContratoDAO.insertarContrato(contrato);
     }
 
-    public static Contrato consultar(int id){
+    public static Contrato consultar(int idContrato) {
 
-        return ContratoDAO.consultarContrato(id);
+        return ContratoDAO.consultarContrato(idContrato);
     }
 
     public static int actualizar(int id, String fechaInicio, String fechaFin, double precio, String estado) {
 
-        Contrato c = new Contrato(id, fechaInicio, fechaFin, precio, estado);
+        Contrato contrato = new Contrato(id, fechaInicio, fechaFin, precio, estado);
 
-        return ContratoDAO.actualizarContrato(c);
+        return ContratoDAO.actualizarContrato(contrato);
     }
 
-    public static void eliminar(int id){
+    public static void eliminar(int idContrato) {
 
-        ContratoDAO.eliminarContrato(id);
+        ContratoDAO.eliminarContrato(idContrato);
     }
 
-    public static int estado(int id, int estado){
+    public static int estado(int idContrato, int estado) {
 
-        return ContratoDAO.actualizarestadoContrato(id, estado);
+        return ContratoDAO.actualizarestadoContrato(idContrato, estado);
     }
 
-    public static void actualizacionAutomatica(){
+    public static void actualizacionAutomatica() {
         ContratoDAO.actualizacionAutomatica();
     }
 }

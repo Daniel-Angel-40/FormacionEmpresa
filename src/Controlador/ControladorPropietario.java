@@ -6,28 +6,28 @@ import Modelo.Propietario;
 public class ControladorPropietario {
 
 
-    public static int insertar(String DNI,String nombre,String correo,String telefono) {
+    public static int insertar(String DNI, String nombre, String correo, String telefono) {
 
-        Propietario p = new Propietario(DNI,nombre,correo,telefono);
+        Propietario propietario = new Propietario(DNI, nombre, correo, telefono);
 
-        int id = PropietarioDAO.insertarPropietario(p);
+        int ultimoIdInsertado = PropietarioDAO.insertarPropietario(propietario);
 
-        return id;
+        return ultimoIdInsertado;
     }
 
-    public static Propietario consultar(int id){
-        return PropietarioDAO.consultarPropietario(id);
+    public static Propietario consultar(int idPropietario) {
+        return PropietarioDAO.consultarPropietario(idPropietario);
     }
 
-    public static int actualizar(int id, String DNI,String nombre,String correo,String telefono){
+    public static int actualizar(int id, String DNI, String nombre, String correo, String telefono) {
 
-        Propietario p = new Propietario(id,DNI,nombre,correo,telefono);
+        Propietario propietario = new Propietario(id, DNI, nombre, correo, telefono);
 
-        return PropietarioDAO.actualizarPropietario(p);
+        return PropietarioDAO.actualizarPropietario(propietario);
     }
 
-    public static void eliminar(int id){
+    public static void eliminar(int idPropietario) {
 
-        PropietarioDAO.eliminarPropietario(id);
+        PropietarioDAO.eliminarPropietario(idPropietario);
     }
 }
