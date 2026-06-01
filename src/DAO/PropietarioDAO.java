@@ -32,13 +32,13 @@ public class PropietarioDAO {
 
             // Asigno a las varibles los parametros de salida
             int error = cs.getInt(5);
-            int id = cs.getInt(6);
+            int ultimoIdInsertado = cs.getInt(6);
 
             // Compruebo que no haya error
             if (error == 0) {
                 System.out.println("Propietario insertado exitosamente");
-                System.out.println("ID: " + id);
-                return id;
+                System.out.println("ID: " + ultimoIdInsertado);
+                return ultimoIdInsertado;
             } else {
                 System.out.println("Error al insertar Propietario");
                 return -1;
@@ -52,7 +52,7 @@ public class PropietarioDAO {
     }
 
     // Funcion para consultar un propietario en la tabla Propietario
-    public static Propietario consultarPropietario(int id) {
+    public static Propietario consultarPropietario(int idPropietario) {
 
         // Inicio la conexion el try para que cuando termine cierre la conexion automaticamente
         try (Connection con = ConexionBD.getConnection()) {
@@ -64,7 +64,7 @@ public class PropietarioDAO {
             PreparedStatement ps = con.prepareStatement(sql);
 
             // Asigno la clave primaria para hacer la consulta
-            ps.setInt(1, id);
+            ps.setInt(1, idPropietario);
 
             ResultSet rs = ps.executeQuery();
 
@@ -74,7 +74,7 @@ public class PropietarioDAO {
                         rs.getString("nombre"), rs.getString("correo_electronico"), rs.getString("telefono"));
                 return propietario;
             } else {
-                System.out.println("No existe un propietario con el ID: " + id);
+                System.out.println("No existe un propietario con el ID: " + idPropietario);
                 return null;
             }
 
@@ -108,8 +108,8 @@ public class PropietarioDAO {
 
             // Asigno a las varibles los parametros de salida
             int error = cs.getInt(2);
-            int viviendas = cs.getInt(3);
-            int contratos = cs.getInt(4);
+            int viviendasAfectadas = cs.getInt(3);
+            int contratosAfectados = cs.getInt(4);
 
             // Cierro el CallableStatment
             cs.close();
@@ -117,8 +117,8 @@ public class PropietarioDAO {
             // Compruebo que no haya error y muestro la viviendas afectadas al eliminar el propietario
             if (error == 0) {
                 System.out.println("Propietario eliminado exitosamente");
-                System.out.println("Viviendas afectadas: " + viviendas);
-                System.out.println("Contratos afectados: " + contratos);
+                System.out.println("Viviendas afectadas: " + viviendasAfectadas);
+                System.out.println("Contratos afectados: " + contratosAfectados);
             } else {
                 System.out.println("Error al eliminar Propietario");
             }

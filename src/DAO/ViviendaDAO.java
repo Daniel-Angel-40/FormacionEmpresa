@@ -58,7 +58,7 @@ public class ViviendaDAO {
         return -1;
     }
 
-    public static Vivienda consultarViviendas(String id) {
+    public static Vivienda consultarViviendas(String idVivienda) {
 
         try (Connection con = ConexionBD.getConnection()) {
 
@@ -66,18 +66,18 @@ public class ViviendaDAO {
 
             CallableStatement cs = con.prepareCall(sql);
 
-            cs.setString(1, id);
+            cs.setString(1, idVivienda);
 
             ResultSet rs = cs.executeQuery();
 
             if (rs.next()) {
 
-                Vivienda v = new Vivienda(rs.getString("id"), rs.getInt("id_propietario"),
+                Vivienda vivienda = new Vivienda(rs.getString("id"), rs.getInt("id_propietario"),
                         rs.getDouble("alquiler_mensual"), rs.getString("direccion"),
                         rs.getDouble("superficie"), rs.getString("descripcion"),
                         rs.getBoolean("permite_mascota"), rs.getString("tipo"));
 
-                return v;
+                return vivienda;
             } else {
                 return null;
             }
@@ -88,7 +88,7 @@ public class ViviendaDAO {
         }
     }
 
-    public static void eliminarVivienda(String id) {
+    public static void eliminarVivienda(String idVivienda) {
 
         try (Connection con = ConexionBD.getConnection()) {
 
@@ -96,18 +96,18 @@ public class ViviendaDAO {
 
             CallableStatement cs = con.prepareCall(sql);
 
-            cs.setString(1, id);
+            cs.setString(1, idVivienda);
             cs.registerOutParameter(2, Types.INTEGER);
             cs.registerOutParameter(3, Types.INTEGER);
 
             cs.execute();
 
             int error = cs.getInt(2);
-            int filas = cs.getInt(3);
+            int contratosAfectados = cs.getInt(3);
 
             if (error == 0) {
                 System.out.println("Vivienda eliminada exitosamente");
-                System.out.println("Contratos afectados: " + filas);
+                System.out.println("Contratos afectados: " + contratosAfectados);
             } else {
                 System.out.println("Error al eliminar la vivienda");
             }
@@ -120,7 +120,7 @@ public class ViviendaDAO {
 
     public static int actualizarVivienda(Vivienda vivienda) {
 
-        try(Connection con = ConexionBD.getConnection()) {
+        try (Connection con = ConexionBD.getConnection()) {
 
             String sql = "{CALL sp_upd_vivienda(?,?,?,?,?,?,?,?,?)}";
 
@@ -149,7 +149,7 @@ public class ViviendaDAO {
                     return -2;
             }
 
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println("Error SQL: " + e.getMessage());
             return -1;
         }

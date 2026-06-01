@@ -26,11 +26,11 @@ public class ContratoDAO {
             cs.execute();
 
             int error = cs.getInt(6);
-            int id = cs.getInt(7);
+            int ultimoIdInsertado = cs.getInt(7);
 
             switch (error) {
                 case 0:
-                    return id;
+                    return ultimoIdInsertado;
 
                 case 1:
                     return -1;
@@ -41,8 +41,8 @@ public class ContratoDAO {
 
             cs.close();
 
-        } catch (SQLException ex) {
-            System.out.println("Error SQL: " + ex.getMessage());
+        } catch (SQLException e) {
+            System.out.println("Error SQL: " + e.getMessage());
             return -1;
         }
         return -1;
@@ -61,10 +61,10 @@ public class ContratoDAO {
             ResultSet rs = cs.executeQuery();
 
             if (rs.next()) {
-                Contrato c = new Contrato(rs.getInt("id"), rs.getString("id_vivienda"),
+                Contrato contrato = new Contrato(rs.getInt("id"), rs.getString("id_vivienda"),
                         rs.getInt("id_inquilino"), rs.getDouble("precio"), rs.getString("fecha_fin"),
                         rs.getString("fecha_inicio"), rs.getString("estado"));
-                return c;
+                return contrato;
             } else {
                 return null;
             }
@@ -75,7 +75,7 @@ public class ContratoDAO {
         }
     }
 
-    public static void eliminarContrato(int id) {
+    public static void eliminarContrato(int idContrato) {
 
         try (Connection con = ConexionBD.getConnection()) {
 
@@ -83,7 +83,7 @@ public class ContratoDAO {
 
             CallableStatement cs = con.prepareCall(sql);
 
-            cs.setInt(1, id);
+            cs.setInt(1, idContrato);
             cs.registerOutParameter(2, Types.INTEGER);
 
             cs.execute();
@@ -140,7 +140,7 @@ public class ContratoDAO {
         return -1;
     }
 
-    public static int actualizarestadoContrato(int id, int estado) {
+    public static int actualizarestadoContrato(int idContrato, int estado) {
 
         try (Connection con = ConexionBD.getConnection()) {
 
@@ -148,7 +148,7 @@ public class ContratoDAO {
 
             CallableStatement cs = con.prepareCall(sql);
 
-            cs.setInt(1, id);
+            cs.setInt(1, idContrato);
             cs.setInt(2, estado);
             cs.registerOutParameter(3, Types.INTEGER);
 
@@ -172,9 +172,9 @@ public class ContratoDAO {
         return -1;
     }
 
-    public static void actualizacionAutomatica(){
+    public static void actualizacionAutomatica() {
 
-        try(Connection con = ConexionBD.getConnection()) {
+        try (Connection con = ConexionBD.getConnection()) {
 
             String sql = "{CALL sp_actualizacion_automatica()}";
 
@@ -184,7 +184,7 @@ public class ContratoDAO {
 
             cs.close();
 
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println("Error SQL: " + e.getMessage());
         }
     }

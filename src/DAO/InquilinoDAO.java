@@ -26,10 +26,10 @@ public class InquilinoDAO {
             cs.execute();
 
             int error = cs.getInt(6);
-            int id = cs.getInt(7);
+            int ultimoIdInsertado = cs.getInt(7);
 
             if (error == 0) {
-                return id;
+                return ultimoIdInsertado;
             } else {
                 return -1;
             }
@@ -40,7 +40,7 @@ public class InquilinoDAO {
         }
     }
 
-    public static Inquilino consultarInquilino(int id) {
+    public static Inquilino consultarInquilino(int idInquilino) {
 
         try (Connection con = ConexionBD.getConnection()) {
 
@@ -48,14 +48,16 @@ public class InquilinoDAO {
 
             CallableStatement cs = con.prepareCall(sql);
 
-            cs.setInt(1, id);
+            cs.setInt(1, idInquilino);
 
             ResultSet rs = cs.executeQuery();
 
             if (rs.next()) {
-                Inquilino i = new Inquilino(rs.getInt("id"), rs.getString("DNI"), rs.getString("nombre"),
+
+                Inquilino inquilino = new Inquilino(rs.getInt("id"), rs.getString("DNI"), rs.getString("nombre"),
                         rs.getString("correo_electronico"), rs.getString("telefono"), rs.getBoolean("tiene_mascota"));
-                return i;
+
+                return inquilino;
             } else {
                 return null;
             }
@@ -66,7 +68,7 @@ public class InquilinoDAO {
         }
     }
 
-    public static void eliminarInquilino(int id) {
+    public static void eliminarInquilino(int idInquilino) {
 
         try(Connection con = ConexionBD.getConnection()) {
 
@@ -74,18 +76,18 @@ public class InquilinoDAO {
 
             CallableStatement cs = con.prepareCall(sql);
 
-            cs.setInt(1, id);
+            cs.setInt(1, idInquilino);
             cs.registerOutParameter(2, Types.INTEGER);
             cs.registerOutParameter(3, Types.INTEGER);
 
             cs.execute();
 
             int error = cs.getInt(2);
-            int filas = cs.getInt(3);
+            int contratosAfectados = cs.getInt(3);
 
             if (error == 0) {
                 System.out.println("Inquilino eliminado correctamente");
-                System.out.println("Contratos afectados: " + filas);
+                System.out.println("Contratos afectados: " + contratosAfectados);
             } else {
                 System.out.println("Error al eliminar inquilino");
             }
