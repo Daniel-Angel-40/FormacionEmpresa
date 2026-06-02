@@ -5,21 +5,31 @@ import Modelo.Vivienda;
 
 import java.sql.*;
 
+/**
+ * Clase encargada de realizar las operaciones CRUD sobre la tabla Vivienda.
+ * Utiliza procedimientos almacenados para interactuar con la base de datos.
+ *
+ * @author Daniel
+ * @version 1.0
+ */
 public class ViviendaDAO {
 
-    // Funcion para insertar una vivienda en la tabla Vivienda
+    /**
+     * Inserta una nueva vivienda en la base de datos.
+     *
+     * @param vivienda Objeto Vivienda con los datos que se desean registrar.
+     * @return 0 si la inserción se realiza correctamente,
+     * -1 si ocurre un error general,
+     * -2 si se incumple una restricción CHECK.
+     */
     public static int insertarVivienda(Vivienda vivienda) {
 
-        // Inicio la conexion el try para que cuando termine cierre la conexion automaticamente
         try (Connection connection = ConexionBD.getConnection()) {
 
-            // Creacion de la sentencia sql
             String sql = "{CALL sp_ins_vivienda(?,?,?,?,?,?,?,?,?)}";
 
-            // Inserto en CallableStatament la sentencia
             CallableStatement cs = connection.prepareCall(sql);
 
-            // Le asigno los valores
             cs.setString(1, vivienda.getId());
             cs.setInt(2, vivienda.getPropietario());
             cs.setString(3, vivienda.getDireccion());
@@ -30,13 +40,10 @@ public class ViviendaDAO {
             cs.setString(8, vivienda.getTipo());
             cs.registerOutParameter(9, Types.INTEGER);
 
-            // Ejecuto
             cs.execute();
 
-            // Asigno a la varible el parametro de salida
             int error = cs.getInt(9);
 
-            // En caso de que el error sea 1 es un error generico y si es 2 es un error de tipo CHECK
             switch (error) {
                 case 0:
                     return 0;
@@ -48,7 +55,6 @@ public class ViviendaDAO {
                     return -2;
             }
 
-            // Cierro el CallableStatment
             cs.close();
 
         } catch (SQLException e) {
@@ -58,6 +64,13 @@ public class ViviendaDAO {
         return -1;
     }
 
+    /**
+     * Consulta una vivienda a partir de su identificador.
+     *
+     * @param idVivienda Identificador único de la vivienda.
+     * @return Un objeto Vivienda con los datos recuperados de la base de datos
+     * o null si la vivienda no existe o se produce un error.
+     */
     public static Vivienda consultarViviendas(String idVivienda) {
 
         try (Connection con = ConexionBD.getConnection()) {
@@ -88,6 +101,12 @@ public class ViviendaDAO {
         }
     }
 
+    /**
+     * Elimina una vivienda de la base de datos.
+     * También informa del número de contratos afectados por la eliminación.
+     *
+     * @param idVivienda Identificador de la vivienda que se desea eliminar.
+     */
     public static void eliminarVivienda(String idVivienda) {
 
         try (Connection con = ConexionBD.getConnection()) {
@@ -117,7 +136,14 @@ public class ViviendaDAO {
             System.out.println("Error SQL: " + e.getMessage());
         }
     }
-
+    /**
+     * Actualiza los datos de una vivienda existente.
+     *
+     * @param vivienda Objeto Vivienda con los nuevos datos.
+     * @return 0 si la actualización se realiza correctamente,
+     *         -1 si ocurre un error general,
+     *         -2 si se incumple una restricción CHECK.
+     */
     public static int actualizarVivienda(Vivienda vivienda) {
 
         try (Connection con = ConexionBD.getConnection()) {
