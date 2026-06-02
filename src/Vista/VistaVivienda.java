@@ -5,7 +5,12 @@ import Controlador.ControladorVivienda;
 import Modelo.Vivienda;
 
 import java.util.Scanner;
-
+/**
+ * Clase encargada de la interfaz de usuario por consola para el control de inventario de Viviendas.
+ * Ofrece un menú interactivo para coordinar el alta de inmuebles, sus características constructivas, precios y tipologías.
+ * @author Daniel
+ * @version 1.0
+ */
 public class VistaVivienda {
 
     public static final Scanner sc = new Scanner(System.in);
@@ -49,6 +54,10 @@ public class VistaVivienda {
         } while (opcion != 0);
     }
 
+    /**
+     * Genera un nuevo registro de vivienda en el sistema tras validar explícitamente
+     * que el ID de su propietario exista legalmente en los registros previos.
+     */
     private static void insertarVivienda() {
 
         sc.nextLine();
@@ -99,6 +108,9 @@ public class VistaVivienda {
         }
     }
 
+    /**
+     * Solicita la clave primaria alfanumérica de una vivienda para imprimir su desglose técnico.
+     */
     private static void consultarVivienda() {
 
         sc.nextLine();
@@ -115,6 +127,10 @@ public class VistaVivienda {
         }
     }
 
+    /**
+     * Permite redefinir las características funcionales y económicas de un inmueble.
+     * Instancia un flujo de escaneo propio para asegurar el aislamiento de datos durante la edición concurrente por terminal.
+     */
     private static void modificarVivienda() {
 
         Scanner sc = new Scanner(System.in);
@@ -174,6 +190,10 @@ public class VistaVivienda {
         }
     }
 
+    /**
+     * Borra del catálogo comercial un inmueble por su ID, condicionando el éxito operativo a la confirmación
+     * de baja de todos los acuerdos contractuales que recaen sobre ella.
+     */
     private static void eliminarVivienda() {
 
         sc.nextLine();
