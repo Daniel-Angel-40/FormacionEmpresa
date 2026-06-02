@@ -2,7 +2,7 @@ package Modelo;
 /**
  * Representa a un propietario registrado en el sistema.
  * Almacena su información de identificación legal y datos de contacto directo.
- * * @author Daniel
+ * @author Daniel
  * @version 1.0
  */
 public class Propietario {
