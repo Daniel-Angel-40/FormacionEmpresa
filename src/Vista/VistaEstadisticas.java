@@ -7,7 +7,13 @@ import Modelo.Vivienda;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/**
+ * Clase encargada de la interfaz de usuario por consola para consultas analíticas y estadísticas.
+ * Permite listar históricos de alquileres, viviendas disponibles y activas, además de
+ * ofrecer soporte para la exportación de información estructurada a formatos JSON y CSV.
+ * @author Daniel
+ * @version 1.0
+ */
 public class VistaEstadisticas {
 
     private static final Scanner sc = new Scanner(System.in);
@@ -50,6 +56,10 @@ public class VistaEstadisticas {
         } while (opcion != 0);
     }
 
+    /**
+     * Recupera y muestra de manera secuencial y paginada todas las viviendas libres actuales.
+     * Al finalizar la lista, pregunta al usuario si desea exportar dichos datos a JSON y/o CSV.
+     */
     private static void viviendasLibres() {
 
         System.out.println("\n── Viviendas libres ──");
@@ -88,6 +98,10 @@ public class VistaEstadisticas {
         }
     }
 
+    /**
+     * Solicita el identificador de un propietario y lista las viviendas vinculadas a un contrato vigente.
+     * Ofrece opciones guiadas para exportar este subconjunto de datos a formatos externos.
+     */
     private static void viviendasActivasPropietario() {
 
         System.out.println("\n── Viviendas activas de propietario ──");
@@ -129,6 +143,10 @@ public class VistaEstadisticas {
         }
     }
 
+    /**
+     * Obtiene y lista secuencialmente todos los contratos asociados a un inquilino específico.
+     * Incluye las funciones de generación de reportes JSON y CSV correspondientes.
+     */
     private static void historicoInquilino() {
 
         System.out.println("\n── Histórico de inquilino ──");
