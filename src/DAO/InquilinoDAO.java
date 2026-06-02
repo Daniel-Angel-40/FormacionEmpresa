@@ -4,9 +4,22 @@ import ConexionBD.ConexionBD;
 import Modelo.Inquilino;
 
 import java.sql.*;
-
+/**
+ * Clase encargada de gestionar las operaciones CRUD sobre la tabla Inquilino.
+ * Utiliza procedimientos almacenados para interactuar con la base de datos.
+ *
+ * @author Daniel
+ * @version 1.0
+ */
 public class InquilinoDAO {
 
+    /**
+     * Inserta un nuevo inquilino en la base de datos.
+     *
+     * @param inquilino Objeto que contiene los datos del inquilino a insertar.
+     * @return El identificador generado para el inquilino si la operación se
+     *         realiza correctamente; -1 en caso de error.
+     */
     public static int insertarInquilino(Inquilino inquilino) {
 
         try (Connection con = ConexionBD.getConnection()) {
@@ -40,6 +53,13 @@ public class InquilinoDAO {
         }
     }
 
+    /**
+     * Consulta un inquilino a partir de su identificador.
+     *
+     * @param idInquilino Identificador único del inquilino.
+     * @return Un objeto Inquilino con los datos recuperados de la base de datos
+     *         o null si no existe o se produce un error.
+     */
     public static Inquilino consultarInquilino(int idInquilino) {
 
         try (Connection con = ConexionBD.getConnection()) {
@@ -68,6 +88,12 @@ public class InquilinoDAO {
         }
     }
 
+    /**
+     * Elimina un inquilino de la base de datos.
+     * También muestra el número de contratos afectados por la eliminación.
+     *
+     * @param idInquilino Identificador del inquilino que se desea eliminar.
+     */
     public static void eliminarInquilino(int idInquilino) {
 
         try(Connection con = ConexionBD.getConnection()) {
@@ -98,6 +124,13 @@ public class InquilinoDAO {
         }
     }
 
+    /**
+     * Actualiza los datos de un inquilino existente en la base de datos.
+     *
+     * @param inquilino Objeto que contiene los nuevos datos del inquilino.
+     * @return 0 si la actualización se realiza correctamente;
+     *         -1 si ocurre algún error.
+     */
     public static int actualizarInquilino(Inquilino inquilino) {
 
         try(Connection con = ConexionBD.getConnection()) {
