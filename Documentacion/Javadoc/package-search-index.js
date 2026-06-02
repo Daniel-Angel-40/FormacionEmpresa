@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ConexionBD"},{"l":"Controlador"},{"l":"DAO"},{"l":"Modelo"},{"l":"Vista"}];updateSearchResults();
