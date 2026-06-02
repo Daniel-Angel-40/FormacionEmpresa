@@ -5,8 +5,22 @@ import Modelo.Contrato;
 
 import java.sql.*;
 
+/**
+ * Clase encargada de gestionar las operaciones CRUD sobre la tabla Contrato.
+ * Utiliza procedimientos almacenados para interactuar con la base de datos.
+ *
+ * @author Daniel
+ * @version 1.0
+ */
 public class ContratoDAO {
-
+    /**
+     * Inserta un nuevo contrato en la base de datos.
+     *
+     * @param contrato Objeto que contiene los datos del contrato a insertar.
+     * @return ID del contrato insertado si la operación es correcta,
+     * -1 si ocurre un error general.
+     * -2 si se incumple alguna restricción CHECK.
+     */
     public static int insertarContrato(Contrato contrato) {
 
         try (Connection con = ConexionBD.getConnection()) {
@@ -48,7 +62,14 @@ public class ContratoDAO {
         return -1;
     }
 
-    public static Contrato consultarContrato(int id) {
+    /**
+     * Consulta un contrato a partir de su identificador.
+     *
+     * @param idContrato Identificador único del contrato.
+     * @return Un objeto Contrato con los datos recuperados de la base de datos
+     * o null si no existe o se produce un error.
+     */
+    public static Contrato consultarContrato(int idContrato) {
 
         try (Connection con = ConexionBD.getConnection()) {
 
@@ -56,7 +77,7 @@ public class ContratoDAO {
 
             CallableStatement cs = con.prepareCall(sql);
 
-            cs.setInt(1, id);
+            cs.setInt(1, idContrato);
 
             ResultSet rs = cs.executeQuery();
 
@@ -75,6 +96,11 @@ public class ContratoDAO {
         }
     }
 
+    /**
+     * Elimina un contrato de la base de datos.
+     *
+     * @param idContrato Identificador del contrato que se desea eliminar.
+     */
     public static void eliminarContrato(int idContrato) {
 
         try (Connection con = ConexionBD.getConnection()) {
@@ -101,6 +127,14 @@ public class ContratoDAO {
         }
     }
 
+    /**
+     * Actualiza los datos de un contrato existente.
+     *
+     * @param contrato Objeto que contiene los nuevos datos del contrato.
+     * @return 0 si la actualización se realiza correctamente.
+     * -1 si ocurre un error general.
+     * -2 si se incumple alguna restricción CHECK.
+     */
     public static int actualizarContrato(Contrato contrato) {
 
         try (Connection con = ConexionBD.getConnection()) {
@@ -140,6 +174,15 @@ public class ContratoDAO {
         return -1;
     }
 
+    /**
+     * Modifica el estado de un contrato.
+     *
+     * @param idContrato Identificador del contrato cuyo estado se desea actualizar.
+     * @param estado     Nuevo estado que se asignará al contrato.
+     * @return 0 si la actualización se realiza correctamente.
+     * -1 si ocurre algún error durante la operación.
+     *
+     */
     public static int actualizarestadoContrato(int idContrato, int estado) {
 
         try (Connection con = ConexionBD.getConnection()) {
@@ -172,6 +215,12 @@ public class ContratoDAO {
         return -1;
     }
 
+    /**
+     * Ejecuta la actualización automática de contratos.
+     * Este metodo llama a un procedimiento almacenado
+     * y actualizar automáticamente el estado de los contratos según las
+     * reglas definidas dentro del procedimiento.
+     */
     public static void actualizacionAutomatica() {
 
         try (Connection con = ConexionBD.getConnection()) {
