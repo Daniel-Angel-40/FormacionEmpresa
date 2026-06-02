@@ -1,5 +1,11 @@
 package Modelo;
-
+/**
+ * Representa una vivienda disponible en el sistema de gestión inmobiliaria.
+ * Contiene información sobre su ubicación, características físicas, costo de alquiler
+ * y la relación con su propietario.
+ * * @author Daniel
+ * @version 1.0
+ */
 public class Vivienda {
 
     // ATRIBUTOS
@@ -82,6 +88,18 @@ public class Vivienda {
 
     // CONTRUCTORES
 
+    /**
+     * Constructor completo para instanciar una vivienda con todos sus datos,
+     * incluyendo su identificador único, pensado para lecturas desde Base de Datos.
+     * @param id Identificador único de la vivienda.
+     * @param propietario ID del propietario.
+     * @param alquiler_mensual Costo mensual del alquiler.
+     * @param direccion Dirección física.
+     * @param superficie Metros cuadrados de la vivienda.
+     * @param descripcion Detalles adicionales del inmueble.
+     * @param permite_mascota Estado de admisión de mascotas.
+     * @param tipo tipo de vivienda.
+     */
     public Vivienda(String id, int propietario, double alquiler_mensual, String direccion, double superficie,
                     String descripcion, boolean permite_mascota, String tipo) {
         this.id = id;
@@ -94,6 +112,17 @@ public class Vivienda {
         this.tipo = tipo;
     }
 
+    /**
+     * Constructor alternativo sin el ID de la vivienda pensado para inserciones
+     * donde el ID se genera de manera autoincremental.
+     * @param id_propietario ID del propietario.
+     * @param direccion Dirección física.
+     * @param alquiler_mensual Costo mensual del alquiler.
+     * @param superficie Metros cuadrados de la vivienda.
+     * @param permite_mascota Estado de admisión de mascotas.
+     * @param descripcion Detalles adicionales del inmueble.
+     * @param tipo tipo de vivienda.
+     */
     public Vivienda(int id_propietario, String direccion, double alquiler_mensual, double superficie, boolean permite_mascota, String descripcion, String tipo) {
         this.id_propietario = id_propietario;
         this.direccion = direccion;
