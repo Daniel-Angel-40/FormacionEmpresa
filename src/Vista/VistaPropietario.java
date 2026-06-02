@@ -4,10 +4,14 @@ import Controlador.ControladorPropietario;
 import Modelo.Propietario;
 
 import java.util.Scanner;
-
+/**
+ * Clase encargada de la interfaz de usuario por consola para la gestión de Propietarios.
+ * Implementa el flujo interactivo de inserciones, consultas y bajas de rentistas del sistema.
+ * @author Daniel
+ * @version 1.0
+ */
 public class VistaPropietario {
 
-    // Pongo aqui el scaner para que me sirva en toda la clase
     private static final Scanner sc = new Scanner(System.in);
 
     public static void menuPropietario() {
@@ -52,6 +56,10 @@ public class VistaPropietario {
         } while (opcion != 0);
     }
 
+    /**
+     * Captura secuencialmente las cadenas correspondientes al perfil de un nuevo propietario.
+     * Pasa la información al controlador e indica si el almacenamiento fue exitoso.
+     */
     private static void insertarPropietario() {
 
         System.out.println("\n── Añadir propietario ──");
@@ -78,6 +86,9 @@ public class VistaPropietario {
         }
     }
 
+    /**
+     * Realiza búsquedas de propietarios por ID imprimiendo sus credenciales de contacto en formato de ficha.
+     */
     private static void consultarPropietario() {
 
         System.out.println("\n── Consultar propietario ──");
@@ -94,6 +105,10 @@ public class VistaPropietario {
 
     }
 
+    /**
+     * Habilita cambios estructurados sobre un propietario activo.
+     * Incorpora una validación interna que preserva los datos originales si el operador introduce campos vacíos.
+     */
     private static void actualizarPropietario() {
 
         System.out.println("\n── Modificar propietario ──");
@@ -140,6 +155,10 @@ public class VistaPropietario {
         }
     }
 
+    /**
+     * Tramita la exclusión de un propietario del sistema informando explícitamente sobre el impacto
+     * de eliminación en cadena de sus viviendas y contratos vinculados.
+     */
     private static void eliminarPropietario() {
 
         System.out.println("\n── Eliminar propietario ──");
