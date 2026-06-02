@@ -2,7 +2,14 @@ import DAO.ContratoDAO;
 import Vista.*;
 
 import java.util.Scanner;
-
+/**
+ * Clase principal y punto de entrada de la aplicación "ALQUILARIA".
+ * Coordina el inicio del sistema, ejecuta tareas automáticas de mantenimiento
+ * de datos y despliega el menú raízinteractivo por consola que
+ * conecta con las distintas vistas de gestión.
+ * @author Daniel
+ * @version 1.0
+ */
 public class Main {
 
     private static final Scanner sc = new Scanner(System.in);
