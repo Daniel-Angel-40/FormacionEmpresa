@@ -6,7 +6,12 @@ import DAO.InquilinoDAO;
 import Modelo.Inquilino;
 
 import java.util.Scanner;
-
+/**
+ * Clase encargada de la interfaz de usuario por consola para gestionar el censo de Inquilinos.
+ * Permite registrar nuevos perfiles, validar campos, actualizar datos de contacto e indicar la tenencia de mascotas.
+ * @author Daniel
+ * @version 1.0
+ */
 public class VistaInquilino {
 
     private static final Scanner sc = new Scanner(System.in);
@@ -54,6 +59,10 @@ public class VistaInquilino {
         } while (opcion != 0);
     }
 
+    /**
+     * Recoge los datos personales esenciales de un inquilino (DNI, Nombre, Contacto y Mascota),
+     * los procesa mediante el controlador pertinente e imprime la confirmación operacional con su ID generado.
+     */
     private static void insertarInquilino() {
 
         System.out.println("\n── Añadir inquilino ──");
@@ -82,6 +91,9 @@ public class VistaInquilino {
         }
     }
 
+    /**
+     * Recupera un registro de inquilino según su ID y formatea su salida por pantalla.
+     */
     private static void consultarInquilino() {
 
         System.out.println("\n── Consultar inquilino ──");
@@ -98,6 +110,10 @@ public class VistaInquilino {
 
     }
 
+    /**
+     * Modifica los atributos de un inquilino previamente registrado.
+     * Presenta la información existente como referencia entre corchetes antes de la nueva captura de texto.
+     */
     private static void actualizarInquilino() {
 
         System.out.println("\n── Modificar inquilino ──");
@@ -136,6 +152,10 @@ public class VistaInquilino {
         }
     }
 
+    /**
+     * Coordina la eliminación lógica y física de un inquilino del sistema por ID.
+     * Advierte explícitamente al operador sobre la eliminación colateral de sus contratos de alquiler en vigor.
+     */
     private static void eliminarInquilino() {
 
         System.out.println("\n── Eliminar inquilino ──");
