@@ -1,5 +1,10 @@
 package Modelo;
-
+/**
+ * Representa a un propietario registrado en el sistema.
+ * Almacena su información de identificación legal y datos de contacto directo.
+ * * @author Daniel
+ * @version 1.0
+ */
 public class Propietario {
 
     // ATRIBUTOS
@@ -55,16 +60,16 @@ public class Propietario {
 
     // CONSTRUCTORES
 
-    public Propietario() {
-        this.id = -1;
-        this.DNI = null;
-        this.nombre = null;
-        this.correo = null;
-        this.telefono = null;
-    }
-
-
-    // Constructor para cuando se haga una consulta
+    /**
+     * Constructor completo utilizado para procesar consultas de la base de datos,
+     * donde ya se conoce el ID asignado.
+     * Controla que los campos de contacto vacíos se almacenen como null.
+     * @param id Identificador único del propietario.
+     * @param DNI Documento Nacional de Identidad.
+     * @param nombre Nombre completo.
+     * @param correo Correo electrónico.
+     * @param telefono Número de teléfono.
+     */
     public Propietario(int id, String DNI, String nombre, String correo, String telefono) {
         this.id = id;
         this.DNI = DNI;
@@ -81,7 +86,15 @@ public class Propietario {
         }
     }
 
-    // Constructor para cuando se inserte en la base de datos
+    /**
+     * Constructor utilizado para preparar el registro de un nuevo propietario
+     * en la base de datos.
+     * Controla que los campos de contacto vacíos se almacenen como null.
+     * @param DNI Documento Nacional de Identidad.
+     * @param nombre Nombre completo.
+     * @param correo Correo electrónico.
+     * @param telefono Número de teléfono.
+     */
     public Propietario(String DNI, String nombre, String correo, String telefono) {
         this.DNI = DNI;
         this.nombre = nombre;
