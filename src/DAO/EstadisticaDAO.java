@@ -12,9 +12,20 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+/**
+ * Clase encargada de generar consultas estadísticas sobre viviendas y contratos.
+ * Permite obtener listados, históricos y exportaciones en formatos JSON y CSV.
+ *
+ * @author Daniel
+ * @version 1.0
+ */
 public class EstadisticaDAO {
-
+    /**
+     * Obtiene una lista de viviendas que están libres (sin contrato activo) a
+     * partir de un procedimiento almacenado.
+     *
+     * @return Lista de viviendas disponibles.
+     */
     public static ArrayList<Vivienda> viviendasLibres() {
 
         ArrayList<Vivienda> listaViviendas = new ArrayList<>();
@@ -42,6 +53,12 @@ public class EstadisticaDAO {
         return listaViviendas;
     }
 
+    /**
+     * Obtiene las viviendas activas de un propietario concreto.
+     *
+     * @param idPropietario Identificador del propietario.
+     * @return Lista de viviendas actualmente activas del propietario.
+     */
     public static ArrayList<Vivienda> viviendasActivasPropietario(int idPropietario) {
 
         ArrayList<Vivienda> listaViviendas = new ArrayList<>();
@@ -71,6 +88,12 @@ public class EstadisticaDAO {
         return listaViviendas;
     }
 
+    /**
+     * Obtiene el historial de contratos de un inquilino.
+     *
+     * @param idInquilino Identificador del inquilino.
+     * @return Lista de contratos asociados al inquilino.
+     */
     public static ArrayList<Contrato> historicoInquilino(int idInquilino) {
 
         ArrayList<Contrato> listaContratos = new ArrayList<>();
@@ -102,6 +125,10 @@ public class EstadisticaDAO {
         return listaContratos;
     }
 
+    /**
+     * Exporta a formato JSON las viviendas libres y guarda el archivo
+     * en la carpeta Descargas del usuario.
+     */
     public static void viviendasLibresJson() {
 
         try (Connection con = ConexionBD.getConnection()) {
@@ -130,6 +157,11 @@ public class EstadisticaDAO {
         }
     }
 
+    /**
+     * Exporta a JSON las viviendas activas de un propietario.
+     *
+     * @param idPropietario Identificador del propietario.
+     */
     public static void viviendasActivasPropietarioJson(int idPropietario) {
 
         try (Connection con = ConexionBD.getConnection()) {
@@ -160,6 +192,11 @@ public class EstadisticaDAO {
         }
     }
 
+    /**
+     * Exporta a JSON el historial de contratos de un inquilino.
+     *
+     * @param idInquilino Identificador del inquilino.
+     */
     public static void historicoInquilinoJson(int idInquilino) {
 
 
@@ -191,6 +228,10 @@ public class EstadisticaDAO {
         }
     }
 
+    /**
+     * Exporta a CSV las viviendas libres.
+     * El archivo se guarda en la carpeta Descargas del usuario.
+     */
     public static void viviendasLibresCsv() {
 
         String ruta = System.getProperty("user.home") + "/Descargas/";
@@ -215,6 +256,11 @@ public class EstadisticaDAO {
         }
     }
 
+    /**
+     * Exporta a CSV las viviendas activas de un propietario.
+     *
+     * @param idPropietario Identificador del propietario.
+     */
     public static void viviendasActivasPropietarioCsv(int idPropietario) {
 
         String ruta = System.getProperty("user.home") + "/Descargas/";
@@ -241,6 +287,11 @@ public class EstadisticaDAO {
         }
     }
 
+    /**
+     * Exporta a CSV el historial de contratos de un inquilino.
+     *
+     * @param idInquilino Identificador del inquilino.
+     */
     public static void historicoInquilinoCsv(int idInquilino) {
 
         String ruta = System.getProperty("user.home") + "/Descargas/";
