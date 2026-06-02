@@ -4,7 +4,13 @@ import Controlador.ControladorContrato;
 import Modelo.Contrato;
 
 import java.util.Scanner;
-
+/**
+ * Clase encargada de la interfaz de usuario por consola para la gestión de contratos.
+ * Proporciona un menú interactivo para realizar operaciones CRUD
+ * y modificar los estados de los contratos de arrendamiento.
+ * @author Daniel
+ * @version 1.0
+ */
 public class VistaContrato {
 
     private static final Scanner sc = new Scanner(System.in);
@@ -54,6 +60,10 @@ public class VistaContrato {
         } while (opcion != 0);
     }
 
+    /**
+     * Solicita por consola los datos requeridos para registrar un nuevo contrato.
+     * Invoca al controlador para guardarlo y muestra el resultado del proceso junto al ID asignado.
+     */
     private static void insetarContrato() {
 
         sc.nextLine();
@@ -86,6 +96,10 @@ public class VistaContrato {
         }
     }
 
+    /**
+     * Solicita el identificador de un contrato y muestra su información detallada.
+     * Si el contrato no existe, informa al usuario mediante un mensaje de error.
+     */
     private static void consultarContrato() {
 
         System.out.println("\n── Consultar contrato ──");
@@ -102,6 +116,10 @@ public class VistaContrato {
         }
     }
 
+    /**
+     * Permite modificar los datos de un contrato existente (fechas, precio y estado).
+     * Muestra previamente los valores actuales para servir de guía al usuario.
+     */
     private static void actualizarContrato() {
 
         System.out.println("\n── Modificar contrato ──");
@@ -144,6 +162,10 @@ public class VistaContrato {
         }
     }
 
+    /**
+     * Solicita el ID de un contrato y pide confirmación explícita al usuario antes de proceder.
+     * Si se confirma, delega la eliminación definitiva en el controlador.
+     */
     private static void eliminarContrato() {
 
         System.out.println("\n── Eliminar contrato ──");
@@ -169,6 +191,10 @@ public class VistaContrato {
         ControladorContrato.eliminar(idContrato);
     }
 
+    /**
+     * Permite cambiar de manera rápida y exclusiva el estado administrativo de un contrato específico.
+     * Ofrece un submenú numerado con las opciones de estado válidas (Pendiente, Activo, Vencido).
+     */
     private static void cambiarEstadoContrato() {
 
         System.out.println("\n── Cambiar estado del contrato ──");
