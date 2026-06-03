@@ -23,6 +23,13 @@ public class TestPropietarioDAO {
     }
 
     @Test
+    void testInsPropietarioError() {
+        p = new Propietario("12345678A", "Pepe", "test@gmail.com", "234234");
+        int id = PropietarioDAO.insertarPropietario(p);
+        assertFalse(id > 0);
+    }
+
+    @Test
     void testGetPropietario() {
         int id =  PropietarioDAO.insertarPropietario(p);
         Propietario resultado = PropietarioDAO.consultarPropietario(id);
