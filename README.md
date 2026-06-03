@@ -55,6 +55,13 @@ Alquilaria/
 │       ├── VistaInquilino.java
 │       ├── VistaContrato.java
 │       └── VistaEstadisticas.java
+├── test/
+│   ├── config.properties
+│   ├── TestPropietarioDAO.java
+│   ├── TestViviendaDAO.java
+│   ├── TestInquilinoDAO.java
+│   ├── TestContratoDAO.java
+│   └── TestEstadisticaDAO.java
 ├── sql/
 │   ├── Alquilaria_crea.sql
 │   ├── Alquilaria_carga.sql
