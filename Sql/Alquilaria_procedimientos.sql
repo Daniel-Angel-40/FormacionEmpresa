@@ -237,9 +237,13 @@ BEGIN
     UPDATE vivienda SET id_propietario = p_id_propietario, direccion = p_direccion, alquiler_mensual = p_alquiler_mensual, 
     superficie = p_superficie, descripcion = p_descripcion, permite_mascota = p_permite_mascota, tipo = p_tipo WHERE id = p_id;
     
-    
-    SET err = 0;
-    COMMIT;
+    IF ROW_COUNT() = 0 THEN
+		SET err = 1;
+		ROLLBACK;
+    ELSE
+		SET err = 0;
+		COMMIT;
+    END IF;
 END //
 DELIMITER ;
 
