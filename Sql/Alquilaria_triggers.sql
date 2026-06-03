@@ -28,17 +28,6 @@ BEGIN
 END //
 DELIMITER ; 
 
-DROP TRIGGER IF EXISTS tr_contrato_after_insert;
-DELIMITER //
-CREATE TRIGGER tr_propietario_after_insert BEFORE INSERT
-ON propietario
-FOR EACH ROW
-BEGIN
-	
-    SET NEW.DNI = UPPER(NEW.DNI);
-    
-END //
-DELIMITER ; 
 
 
 DROP TRIGGER IF EXISTS tr_contrato_after_insert;
