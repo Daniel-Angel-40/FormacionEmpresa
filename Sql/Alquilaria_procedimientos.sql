@@ -50,40 +50,49 @@ USE alquilaria_bd;
 DROP PROCEDURE IF EXISTS sp_del_propietario;
 DELIMITER //
 CREATE PROCEDURE sp_del_propietario(
-	IN p_id INT,
+    IN p_id INT,
     OUT err INT,
     OUT viviendas INT,
-    OUT contratos INT)
+    OUT contratos INT
+)
 BEGIN
 
-	DECLARE codigo VARCHAR(10);
-
-	DECLARE EXIT HANDLER FOR SQLEXCEPTION
-    BEGIN
-		SET err = 1;
-        SET viviendas = 0;
-        SET contratos = 0;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+        BEGIN
+            SET err = 1;
+            SET viviendas = 0;
+            SET contratos = 0;
         ROLLBACK;
-    END;
+        END;
 
-	START TRANSACTION;
-    
-    SELECT id INTO codigo FROM vivienda WHERE id_propietario = p_id;
-    
-    DELETE FROM contrato WHERE codigo = id_vivienda;
-    
+    START TRANSACTION;
+
+    DELETE c FROM contrato c
+    INNER JOIN vivienda v
+    ON c.id_vivienda = v.id
+    WHERE v.id_propietario = p_id;
+
     SET contratos = ROW_COUNT();
-    
-    DELETE FROM vivienda WHERE id_propietario = p_id;
-    
+
+    DELETE FROM vivienda
+    WHERE id_propietario = p_id;
+
     SET viviendas = ROW_COUNT();
-    
-    DELETE FROM propietario WHERE id = p_id;
-    
-    COMMIT;
-    SET err = 0;
+
+
+    DELETE FROM propietario
+    WHERE id = p_id;
+
+    IF ROW_COUNT() = 0 THEN
+        SET err = 1;
+        ROLLBACK;
+    ELSE
+        COMMIT;
+        SET err = 0;
+    END IF;
 END //
 DELIMITER ;
+
 
 
 DROP PROCEDURE IF EXISTS sp_upd_propietario;
