@@ -129,16 +129,16 @@ The main menu allows navigation to each management section:
 ## Features
 
 ### Owner management
-Add, look up, update, and delete owners. Deleting an owner cascades to their properties and associated contracts.
+CRUD owners. Deleting an owner cascades to their properties and associated contracts.
 
 ### Property management
-Add, look up, update, and delete rental properties. Each property is linked to an owner and classified as `apartamento`, `atico`, or `casa`. Deleting a property cascades to its contracts.
+CRUD rental properties. Each property is linked to an owner and classified as `apartamento`, `atico`, or `casa`. Deleting a property cascades to its contracts.
 
 ### Tenant management
-Add, look up, update, and delete tenants. Tracks whether a tenant has a pet, which is relevant when matching tenants to pet-friendly properties.
+CRUD tenants. Tracks whether a tenant has a pet, which is relevant when matching tenants to pet-friendly properties.
 
 ### Contract management
-Create, look up, update, and delete contracts. Contracts start with `pendiente` status and can be manually changed to `activo` or `vencido`. The application also updates expired contracts automatically on startup. Every change to a contract is automatically logged in the `contrato_history` table via database triggers.
+CRUD contracts. Contracts start with `pendiente` status and can be manually changed to `activo` or `vencido`. The application also updates expired contracts automatically on startup. Every change to a contract is automatically logged in the `contrato_history` table via database triggers.
 
 ### Statistics and advanced queries
 - Rental history for a given tenant (all past and current contracts).
