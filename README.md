@@ -172,3 +172,8 @@ All database logic is encapsulated in stored procedures. The application connect
 - **Consistent error codes** — DAOs return `int` codes (`0` = success, `-1` = generic error, `-2` = validation error) or the generated ID on insert, instead of printing messages directly.
 - **Single Scanner per class** — each View declares one `static final Scanner` shared across all its methods to avoid resource leaks and buffer conflicts.
 - **config.properties** — connection parameters are kept outside source code for easy deployment configuration.
+
+
+## FINAL DEL PROYECTO
+
+El proyecto esta **finalizado**.
